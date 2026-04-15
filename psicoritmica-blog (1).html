@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Psicoritmica — Dott. Manfredi Culotta | Centro Clinico Palermo</title>
+<meta name="description" content="Psicoritmica: ritmo, corpo e relazione per bambini e adolescenti. Formazione insegnanti, supporto genitoriale e co-genitorialità. Dott. Manfredi Culotta — Palermo.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--p:#1a365d;--pl:#2c5282;--a:#d69e2e;--al:#f6e05e;--t:#1a202c;--tl:#4a5568;--tlr:#718096;--bgc:#f7fafc;--bgw:#fffaf0;--b:#e2e8f0;--ok:#38a169;--r:16px;--sh:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);--shx:0 20px 40px -10px rgba(0,0,0,.15)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--t);line-height:1.7;background:var(--bgc)}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,54,93,.97);backdrop-filter:blur(12px);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,.15)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#fff}.nav-tag{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--a);font-weight:600}
+.nav-links{display:flex;gap:4px;align-items:center}.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;font-weight:500;padding:7px 13px;border-radius:8px;transition:.3s}.nav-links a:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-cta{background:var(--a)!important;color:var(--p)!important;padding:9px 20px!important;border-radius:30px!important;font-weight:700!important}.mobile-menu{display:none;background:none;border:none;color:#fff;font-size:28px;cursor:pointer}
+.hero{margin-top:64px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--p) 0%,#2d3748 40%,var(--pl) 100%);color:#fff;padding:100px 40px 80px;min-height:85vh;display:flex;align-items:center}
+.hero::before{content:'';position:absolute;top:-30%;right:-20%;width:60%;height:160%;background:radial-gradient(circle,rgba(214,158,46,.12) 0%,transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,var(--bgc),transparent)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+.hero-text h1{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1.15;margin-bottom:20px}.hero-text h1 span{color:var(--a)}
+.hero-text p{font-size:18px;line-height:1.8;opacity:.9;margin-bottom:30px;max-width:540px}.hero-btns{display:flex;gap:15px;flex-wrap:wrap}
+.btn-primary{background:var(--a);color:var(--p);padding:14px 32px;border-radius:30px;font-weight:700;font-size:16px;text-decoration:none;transition:.3s;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--al);transform:translateY(-2px);box-shadow:0 8px 25px rgba(214,158,46,.3)}
+.btn-outline{background:0 0;color:#fff;padding:14px 32px;border-radius:30px;font-weight:600;font-size:16px;text-decoration:none;border:2px solid rgba(255,255,255,.3);transition:.3s;display:inline-flex;align-items:center;gap:8px}.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.hero-visual{background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:40px}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}.stat-item{text-align:center;padding:20px;background:rgba(255,255,255,.06);border-radius:16px}
+.stat-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--a)}.stat-label{font-size:13px;opacity:.8;margin-top:4px}
+.container{max-width:1200px;margin:0 auto;padding:0 40px}.section{padding:80px 0}
+.section-header{text-align:center;margin-bottom:60px}.section-header h2{font-family:'Playfair Display',serif;font-size:38px;font-weight:800;color:var(--p);margin-bottom:12px}
+.section-header p{font-size:16px;color:var(--tl);max-width:650px;margin:0 auto}.section-header .line{width:60px;height:4px;background:var(--a);margin:16px auto 0;border-radius:2px}
+.about-section{background:#fff}.about-grid{display:grid;grid-template-columns:300px 1fr;gap:50px;align-items:start}
+.about-photo{width:260px;height:260px;border-radius:50%;border:6px solid var(--a);box-shadow:var(--shx);background:linear-gradient(135deg,var(--p),var(--pl));display:flex;align-items:center;justify-content:center;color:#fff;font-size:68px;font-family:'Playfair Display',serif;font-weight:900}
+.about-content h3{font-family:'Playfair Display',serif;font-size:28px;color:var(--p);margin-bottom:8px}.about-role{color:var(--a);font-weight:600;font-size:15px;margin-bottom:20px;display:block}
+.about-bio{color:var(--tl);font-size:15px;line-height:1.9;margin-bottom:25px}.about-details{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:25px}
+.about-detail{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--tl)}.about-detail .icon{width:36px;height:36px;background:var(--bgc);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.about-detail a{color:inherit;text-decoration:none}.about-detail a:hover{color:var(--a)}
+.social-links{display:flex;gap:12px}.social-link{width:42px;height:42px;border-radius:12px;background:var(--bgc);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--p);font-size:18px;transition:.3s;border:1px solid var(--b)}.social-link:hover{background:var(--p);color:#fff;transform:translateY(-2px)}
+.blog-section{background:var(--bgc)}.posts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:30px}
+.post-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);border:1px solid var(--b);transition:.3s;cursor:pointer}.post-card:hover{transform:translateY(-5px);box-shadow:var(--shx)}
+.post-img{height:190px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.post-img .overlay{position:absolute;bottom:0;left:0;right:0;padding:12px 20px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
+.post-tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.tag-theory{background:rgba(102,126,234,.2);color:#667eea}.tag-practice{background:rgba(56,161,105,.2);color:#38a169}.tag-research{background:rgba(214,158,46,.2);color:#d69e2e}.tag-school{background:rgba(240,147,251,.2);color:#c05eb5}.tag-parents{background:rgba(237,100,100,.2);color:#e53e3e}.tag-teachers{background:rgba(49,130,206,.2);color:#3182ce}
+.post-body{padding:24px}.post-body h3{font-size:19px;font-weight:700;color:var(--p);margin-bottom:10px;line-height:1.4}.post-body p{font-size:14px;color:var(--tl);line-height:1.7;margin-bottom:15px}
+.post-meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--tlr)}.read-more{color:var(--a);font-weight:600;text-decoration:none}
+.teachers-section{background:linear-gradient(180deg,#edf2f7 0%,#fff 100%)}
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
+.module-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);border:1px solid var(--b);transition:.3s}.module-card:hover{transform:translateY(-4px);box-shadow:var(--shx)}
+.module-header{padding:24px 28px;color:#fff}.module-num{font-size:11px;text-transform:uppercase;letter-spacing:2px;opacity:.8;font-weight:600}.module-title{font-family:'Playfair Display',serif;font-size:21px;font-weight:800;margin-top:6px}
+.module-body{padding:28px}.module-body>p{font-size:14px;color:var(--tl);line-height:1.8;margin-bottom:16px}
+.md-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}.md-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--bgc);border-radius:20px;font-size:12px;font-weight:600;color:var(--tl)}
+.module-topics{list-style:none}.module-topics li{padding:5px 0 5px 22px;position:relative;font-size:14px;color:var(--tl)}.module-topics li::before{content:'▸';position:absolute;left:0;color:var(--a);font-weight:bold}
+.parents-section{background:var(--bgw)}
+.parents-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-bottom:60px}
+.parents-intro h3{font-family:'Playfair Display',serif;font-size:30px;color:var(--p);margin-bottom:15px;line-height:1.3}.parents-intro p{font-size:15px;color:var(--tl);line-height:1.9;margin-bottom:15px}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.pv-card{background:#fff;border-radius:14px;padding:22px;text-align:center;box-shadow:var(--sh);border:1px solid var(--b)}.pv-icon{font-size:34px;margin-bottom:8px}.pv-title{font-size:13px;font-weight:700;color:var(--p)}.pv-desc{font-size:11px;color:var(--tl);margin-top:3px}
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px;margin-bottom:60px}
+.pillar-card{background:#fff;border-radius:var(--r);padding:28px;box-shadow:var(--sh);border:1px solid var(--b);text-align:center;transition:.3s;border-top:5px solid var(--a)}.pillar-card:hover{transform:translateY(-4px);box-shadow:var(--shx)}
+.pillar-icon{font-size:40px;margin-bottom:12px}.pillar-card h4{font-size:16px;font-weight:700;color:var(--p);margin-bottom:10px}.pillar-card p{font-size:13px;color:var(--tl);line-height:1.8}
+.pathway-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+.pw-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);border:1px solid var(--b)}.pw-header{padding:20px 25px;color:#fff;display:flex;align-items:center;gap:15px}
+.pw-num{width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0}.pw-header h4{font-size:16px;font-weight:700}
+.pw-body{padding:25px}.pw-body>p{font-size:14px;color:var(--tl);line-height:1.8;margin-bottom:12px}.pw-topics{list-style:none}.pw-topics li{padding:4px 0 4px 18px;position:relative;font-size:13px;color:var(--tl)}.pw-topics li::before{content:'●';position:absolute;left:0;color:var(--a);font-size:7px;top:10px}
+.interact-section{background:#fff}.interact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.comment-box{background:var(--bgc);border-radius:var(--r);padding:28px;border:1px solid var(--b)}.comment-box h3{font-size:19px;font-weight:700;color:var(--p);margin-bottom:18px}
+.comment-list{max-height:400px;overflow-y:auto}.comment{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--b)}.comment-header{display:flex;justify-content:space-between;margin-bottom:6px}
+.comment-author{font-weight:700;font-size:14px;color:var(--p)}.comment-date{font-size:12px;color:var(--tlr)}.comment-text{font-size:14px;color:var(--tl);line-height:1.7}
+.form-row{margin-bottom:14px}.form-row label{display:block;font-size:13px;font-weight:600;color:var(--p);margin-bottom:5px}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:11px 15px;border:2px solid var(--b);border-radius:10px;font-family:inherit;font-size:14px;color:var(--t);transition:.3s;background:#fff}
+.form-row input:focus,.form-row textarea:focus,.form-row select:focus{outline:none;border-color:var(--a);box-shadow:0 0 0 3px rgba(214,158,46,.15)}.form-row textarea{resize:vertical;min-height:90px}
+.btn-submit{background:var(--p);color:#fff;padding:11px 26px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;transition:.3s}.btn-submit:hover{background:var(--pl)}
+.newsletter-box{background:linear-gradient(135deg,var(--p),var(--pl));border-radius:var(--r);padding:28px;color:#fff}.newsletter-box h3{font-size:19px;font-weight:700;margin-bottom:8px}.newsletter-box p{font-size:14px;opacity:.85;margin-bottom:18px}
+.newsletter-form{display:flex;gap:10px}.newsletter-form input{flex:1;padding:11px 15px;border:2px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-family:inherit}
+.newsletter-form input::placeholder{color:rgba(255,255,255,.5)}.newsletter-form input:focus{outline:none;border-color:var(--a)}
+.newsletter-form button{background:var(--a);color:var(--p);padding:11px 22px;border:none;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;white-space:nowrap}.newsletter-form button:hover{background:var(--al)}
+.booking-section{background:linear-gradient(180deg,var(--bgw) 0%,#fff 100%)}
+.booking-card{background:#fff;border-radius:20px;padding:48px;box-shadow:var(--shx);border:1px solid var(--b);max-width:800px;margin:0 auto}
+.booking-card h3{font-family:'Playfair Display',serif;font-size:28px;color:var(--p);margin-bottom:10px;text-align:center}.booking-card .subtitle{text-align:center;color:var(--tl);margin-bottom:35px;font-size:15px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.form-full{grid-column:1/-1}
+.booking-services{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.service-option{padding:13px 16px;border:2px solid var(--b);border-radius:12px;cursor:pointer;transition:.3s;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--tl)}.service-option:hover{border-color:var(--a)}
+.service-option.selected{border-color:var(--a);background:rgba(214,158,46,.08);color:var(--p);font-weight:600}
+.btn-book{width:100%;padding:16px;background:var(--a);color:var(--p);border:none;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;transition:.3s;margin-top:10px;font-family:'Playfair Display',serif}
+.btn-book:hover{background:var(--al);transform:translateY(-2px);box-shadow:0 8px 25px rgba(214,158,46,.3)}
+.footer{background:var(--p);color:rgba(255,255,255,.8);padding:60px 40px 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto}.footer-brand p{font-size:14px;line-height:1.8;opacity:.7;max-width:300px;margin-top:12px}
+.footer h4{color:var(--a);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px}.footer ul{list-style:none}.footer li{margin-bottom:10px}
+.footer a{color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;transition:.3s}.footer a:hover{color:var(--a)}
+.footer-bottom{max-width:1200px;margin:40px auto 0;padding-top:25px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:13px;opacity:.6;flex-wrap:wrap;gap:10px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}.modal-overlay.active{display:flex}
+.modal{background:#fff;border-radius:20px;padding:50px;text-align:center;max-width:420px;width:90%;box-shadow:var(--shx);animation:modalIn .4s ease}
+@keyframes modalIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.modal .check{width:70px;height:70px;background:var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px;color:#fff}
+.modal h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--p);margin-bottom:10px}.modal p{color:var(--tl);font-size:15px;margin-bottom:25px}
+.modal-close{background:var(--p);color:#fff;padding:12px 30px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px}
+@media(max-width:968px){.hero-inner{grid-template-columns:1fr}.hero-visual{display:none}.hero{min-height:auto;padding:80px 20px 60px}.hero-text h1{font-size:36px}.about-grid{grid-template-columns:1fr;text-align:center}.about-photo{margin:0 auto}.about-details,.social-links{justify-content:center}.interact-grid,.form-grid,.parents-intro-grid{grid-template-columns:1fr}.booking-services{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.navbar{padding:0 20px}.nav-links{display:none}.nav-links.show{display:flex;position:absolute;top:64px;left:0;right:0;background:var(--p);flex-direction:column;padding:20px;gap:4px;box-shadow:0 10px 20px rgba(0,0,0,.2)}.mobile-menu{display:block}.container{padding:0 20px}}
+@media(max-width:600px){.hero-text h1{font-size:28px}.posts-grid,.modules-grid,.pillars-grid,.pathway-grid,.pv-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.newsletter-form{flex-direction:column}.hero-btns{flex-direction:column}.btn-primary,.btn-outline{text-align:center;justify-content:center}.booking-card{padding:30px 20px}}
+</style>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+<a href="#home" class="nav-brand"><div><div class="nav-logo">Psicoritmica</div><div class="nav-tag">Dott. Manfredi Culotta</div></div></a>
+<div class="nav-links" id="navLinks">
+<a href="#home">Home</a><a href="#about">Chi Sono</a><a href="#blog">Blog</a><a href="#teachers">Insegnanti</a><a href="#parents">Genitori</a><a href="#interact">Community</a><a href="#booking" class="nav-cta">📅 Prenota</a>
+</div>
+<button class="mobile-menu" onclick="document.getElementById('navLinks').classList.toggle('show')">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+<div class="hero-inner">
+<div class="hero-text">
+<h1>Il <span>Ritmo</span> che trasforma.<br>La terapia che connette.</h1>
+<p>La Psicoritmica è un approccio terapeutico integrato che utilizza il ritmo, il movimento corporeo e l'interazione di gruppo per promuovere lo sviluppo socio-emotivo di bambini e adolescenti.</p>
+<div class="hero-btns"><a href="#booking" class="btn-primary">📅 Prenota una Sessione</a><a href="#blog" class="btn-outline">📖 Scopri di più</a></div>
+</div>
+<div class="hero-visual"><div class="hero-stats">
+<div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Assi Terapeutici</div></div>
+<div class="stat-item"><div class="stat-num">16</div><div class="stat-label">Attività Protocollate</div></div>
+<div class="stat-item"><div class="stat-num">32</div><div class="stat-label">Indicatori Clinici</div></div>
+<div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Aree: Clinica · Scuola · Famiglia</div></div>
+</div></div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+<div class="container">
+<div class="section-header"><h2>Chi Sono</h2><div class="line"></div></div>
+<div class="about-grid">
+<div class="about-photo">MC</div>
+<div class="about-content">
+<h3>Dott. Manfredi Culotta</h3>
+<span class="about-role">Psicologo — Specializzando in Psicoterapia della Gestalt (GTK di Ragusa) | Ideatore del Modello Psicoritmico</span>
+<p class="about-bio">Sono Manfredi Culotta, psicologo e specializzando in psicoterapia della Gestalt presso la scuola GTK di Ragusa, con una profonda passione per l'integrazione tra corpo, ritmo e relazione nei processi di cura. Lavoro da anni con bambini e adolescenti, accompagnandoli nei percorsi di crescita emotiva e relazionale attraverso il gruppo terapeutico.<br><br>Ho ideato e sviluppato il modello della <strong>Psicoritmica</strong> — un approccio clinico innovativo che fonde le neuroscienze del ritmo, la psicomotricità relazionale, la teoria polivagale e la psicologia dell'attaccamento in un unico framework di intervento. Il ritmo diventa ponte tra mondo interno e mondo esterno, tra corpo e mente, tra individuo e gruppo.<br><br>Opero presso il <strong>Centro Clinico di Palermo</strong>, dove coordino programmi terapeutici di gruppo, percorsi di formazione per insegnanti e programmi di supporto alla co-genitorialità. Porto la Psicoritmica anche nelle scuole, convinto che il ritmo condiviso sia uno strumento potente di inclusione e benessere.</p>
+<div class="about-details">
+<div class="about-detail"><div class="icon">📍</div>Centro Clinico di Palermo</div>
+<div class="about-detail"><div class="icon">📧</div><a href="mailto:dottmanfrediculotta@gmail.com">dottmanfrediculotta@gmail.com</a></div>
+<div class="about-detail"><div class="icon">🎓</div>Psicologo — Specializzando in Psicoterapia della Gestalt (GTK di Ragusa)</div>
+<div class="about-detail"><div class="icon">👶</div>Bambini, Adolescenti & Famiglie</div>
+</div>
+<div class="social-links">
+<a href="mailto:dottmanfrediculotta@gmail.com" class="social-link" title="Email">✉️</a>
+<a href="#" class="social-link" title="LinkedIn">in</a>
+<a href="#" class="social-link" title="Instagram">📷</a>
+</div>
+</div></div></div>
+</section>
+
+<!-- BLOG -->
+<section class="section blog-section" id="blog">
+<div class="container">
+<div class="section-header"><h2>Blog — Psicoritmica</h2><p>Articoli, approfondimenti e risorse sul ritmo come strumento terapeutico</p><div class="line"></div></div>
+<div class="posts-grid">
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#667eea,#764ba2)"><span style="font-size:55px">🧠</span><div class="overlay"><span class="post-tag tag-theory">Teoria</span></div></div><div class="post-body"><h3>Il Ritmo come Organizzatore Psichico: Fondamenti Neuroscientifici</h3><p>Come la sincronizzazione ritmica attiva circuiti cerebrali legati all'attenzione, alla regolazione emotiva e all'empatia.</p><div class="post-meta"><span>📅 10 Apr 2026</span><span class="read-more">Leggi →</span></div></div></div>
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><span style="font-size:55px">🥁</span><div class="overlay"><span class="post-tag tag-practice">Pratica</span></div></div><div class="post-body"><h3>Il Dialogo dei Tamburi: Quando il Ritmo Diventa Relazione</h3><p>Un'attività per bambini 7-10 anni che esplora la reciprocità attraverso la conversazione ritmica a coppie.</p><div class="post-meta"><span>📅 3 Apr 2026</span><span class="read-more">Leggi →</span></div></div></div>
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><span style="font-size:55px">🎤</span><div class="overlay"><span class="post-tag tag-practice">Pratica</span></div></div><div class="post-body"><h3>RAP Terapeutico: Narrarsi Attraverso il Ritmo con gli Adolescenti</h3><p>Il rap e il ritmo vocale come strumenti di espressione emotiva e costruzione identitaria nel gruppo.</p><div class="post-meta"><span>📅 25 Mar 2026</span><span class="read-more">Leggi →</span></div></div></div>
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><span style="font-size:55px">🏫</span><div class="overlay"><span class="post-tag tag-school">Scuola</span></div></div><div class="post-body"><h3>Psicoritmica a Scuola: Un Progetto per l'Inclusione</h3><p>Come portare la Psicoritmica nelle classi: il progetto scolastico del Centro Clinico di Palermo.</p><div class="post-meta"><span>📅 10 Mar 2026</span><span class="read-more">Leggi →</span></div></div></div>
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#e53e3e,#fc8181)"><span style="font-size:55px">👨‍👩‍👧</span><div class="overlay"><span class="post-tag tag-parents">Genitori</span></div></div><div class="post-body"><h3>Co-Genitorialità e Ritmo: Sintonizzarsi come Famiglia</h3><p>Come il modello della co-genitorialità si integra con la Psicoritmica per supportare le competenze genitoriali.</p><div class="post-meta"><span>📅 2 Mar 2026</span><span class="read-more">Leggi →</span></div></div></div>
+<div class="post-card"><div class="post-img" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><span style="font-size:55px">💓</span><div class="overlay"><span class="post-tag tag-theory">Teoria</span></div></div><div class="post-body"><h3>Teoria Polivagale e Ritmo: Perché il Battito ci Calma</h3><p>Il sistema nervoso autonomo nella risposta alla stimolazione ritmica e le implicazioni per la terapia.</p><div class="post-meta"><span>📅 20 Feb 2026</span><span class="read-more">Leggi →</span></div></div></div>
+</div></div>
+</section>
+<!-- FORMAZIONE INSEGNANTI -->
+<section class="section teachers-section" id="teachers">
+<div class="container">
+<div class="section-header"><h2>🎓 Formazione per Insegnanti</h2><p>Moduli formativi specifici per docenti di ogni ordine e grado: integrare il ritmo nella didattica e nella gestione della classe</p><div class="line"></div></div>
+<div class="modules-grid">
+<div class="module-card">
+<div class="module-header" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="module-num">Modulo 1 — Base</div><div class="module-title">Fondamenti di Psicoritmica per la Scuola</div></div>
+<div class="module-body">
+<p>Il modulo introduttivo offre ai docenti le basi teoriche e pratiche per comprendere il modello psicoritmico e le sue applicazioni nel contesto scolastico.</p>
+<div class="md-chips"><span class="md-chip">⏱ 12 ore</span><span class="md-chip">👥 Max 25</span><span class="md-chip">📄 Attestato ECM</span></div>
+<ul class="module-topics">
+<li>Il ritmo come organizzatore dell'esperienza: basi neuroscientifiche</li>
+<li>I 4 Assi della Psicoritmica e i 3 Livelli di intervento</li>
+<li>Osservazione ritmica in classe: riconoscere i segnali del corpo</li>
+<li>Laboratorio pratico: 5 attività ritmiche per la classe</li>
+<li>La GOP semplificata per insegnanti (GOP-S)</li>
+</ul></div></div>
+<div class="module-card">
+<div class="module-header" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="module-num">Modulo 2 — Intermedio</div><div class="module-title">Ritmo e Regolazione Emotiva in Classe</div></div>
+<div class="module-body">
+<p>Strumenti pratici per utilizzare il ritmo come risorsa quotidiana per la gestione delle emozioni, dei conflitti e dell'attenzione nel gruppo classe.</p>
+<div class="md-chips"><span class="md-chip">⏱ 16 ore</span><span class="md-chip">👥 Max 20</span><span class="md-chip">🔧 Pratico</span></div>
+<ul class="module-topics">
+<li>La regolazione emotiva attraverso il ritmo: dal corpo alla mente</li>
+<li>Protocolli ritmici per la gestione dei conflitti in classe</li>
+<li>Attività di sincronizzazione per migliorare l'attenzione collettiva</li>
+<li>Il cerchio ritmico: creare routine di apertura e chiusura</li>
+<li>Progettare interventi ritmici personalizzati per la propria classe</li>
+</ul></div></div>
+<div class="module-card">
+<div class="module-header" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="module-num">Modulo 3 — Avanzato</div><div class="module-title">Inclusione e Bisogni Educativi Speciali</div></div>
+<div class="module-body">
+<p>Un percorso avanzato dedicato all'uso della Psicoritmica con alunni con BES, DSA e disabilità: adattamenti, strategie inclusive e lavoro in rete con le famiglie.</p>
+<div class="md-chips"><span class="md-chip">⏱ 20 ore</span><span class="md-chip">👥 Max 15</span><span class="md-chip">🏅 Avanzato</span></div>
+<ul class="module-topics">
+<li>Psicoritmica e neurodiversità: adattamenti per DSA, ADHD e autismo</li>
+<li>Il ritmo come ponte comunicativo nei disturbi relazionali</li>
+<li>Strumenti di osservazione e valutazione per BES</li>
+<li>Costruire il PDP ritmico: integrazione con il piano didattico</li>
+<li>Supervisione di casi e laboratorio esperienziale</li>
+</ul></div></div>
+</div></div>
+</section>
+
+<!-- GENITORI -->
+<section class="section parents-section" id="parents">
+<div class="container">
+<div class="section-header"><h2>👨‍👩‍👧‍👦 Supporto ai Genitori</h2><p>Percorsi di co-genitorialità e supporto alle competenze genitoriali attraverso il modello psicoritmico</p><div class="line"></div></div>
+<div class="parents-intro-grid">
+<div class="parents-intro">
+<h3>La Famiglia come <span style="color:var(--a)">Orchestra</span>: Ritmo e Co-Genitorialità</h3>
+<p>Ogni famiglia ha un proprio ritmo. Quando i genitori riescono a sintonizzarsi tra loro e con i propri figli, si crea un'armonia che favorisce lo sviluppo emotivo e relazionale del bambino.</p>
+<p>Il nostro programma di supporto alla co-genitorialità integra i principi della Psicoritmica con la teoria dell'attaccamento e il modello di Feinberg, offrendo strumenti concreti per migliorare la comunicazione familiare, la gestione dei conflitti e la sintonizzazione emotiva.</p>
+<p>I percorsi sono pensati per coppie genitoriali, genitori separati, famiglie allargate e tutti coloro che desiderano rafforzare la propria alleanza educativa.</p>
+</div>
+<div class="pv-grid">
+<div class="pv-card"><div class="pv-icon">🤝</div><div class="pv-title">Alleanza Educativa</div><div class="pv-desc">Costruire una visione condivisa della genitorialità</div></div>
+<div class="pv-card"><div class="pv-icon">💬</div><div class="pv-title">Comunicazione</div><div class="pv-desc">Strategie per un dialogo efficace in famiglia</div></div>
+<div class="pv-card"><div class="pv-icon">🎵</div><div class="pv-title">Sintonizzazione</div><div class="pv-desc">Ritmo condiviso tra genitori e figli</div></div>
+<div class="pv-card"><div class="pv-icon">🛡️</div><div class="pv-title">Gestione Conflitti</div><div class="pv-desc">Strumenti per trasformare i conflitti in crescita</div></div>
+</div>
+</div>
+<div class="pillars-grid">
+<div class="pillar-card"><div class="pillar-icon">🧭</div><h4>Orientamento Genitoriale</h4><p>Colloqui individuali e di coppia per comprendere il proprio stile genitoriale e identificare risorse e aree di crescita.</p></div>
+<div class="pillar-card"><div class="pillar-icon">👥</div><h4>Gruppi per Genitori</h4><p>Percorsi di gruppo dove condividere esperienze, apprendere tecniche ritmiche e rafforzare le competenze co-genitoriali.</p></div>
+<div class="pillar-card"><div class="pillar-icon">🎶</div><h4>Laboratori Famiglia</h4><p>Sessioni pratiche genitori-figli: attività ritmiche condivise per rafforzare il legame e migliorare la sintonizzazione.</p></div>
+<div class="pillar-card"><div class="pillar-icon">📋</div><h4>Consulenza Educativa</h4><p>Supporto personalizzato su tematiche specifiche: gestione dei capricci, routine, separazione, difficoltà scolastiche.</p></div>
+</div>
+<div class="section-header"><h3 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--p);margin-bottom:12px">Percorsi Disponibili</h3><div class="line"></div></div>
+<div class="pathway-grid" style="margin-top:30px">
+<div class="pw-card">
+<div class="pw-header" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="pw-num">1</div><h4>Diventare Genitori Insieme</h4></div>
+<div class="pw-body">
+<p>Percorso per coppie in attesa o neo-genitori: costruire fin da subito un'alleanza co-genitoriale solida e sintonizzata.</p>
+<ul class="pw-topics">
+<li>Aspettative e ruoli nella coppia genitoriale</li>
+<li>Il ritmo del neonato: sintonizzarsi con i bisogni del bambino</li>
+<li>Gestione dello stress e supporto reciproco</li>
+<li>6 incontri — cadenza settimanale</li>
+</ul></div></div>
+<div class="pw-card">
+<div class="pw-header" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="pw-num">2</div><h4>Ritmo in Famiglia</h4></div>
+<div class="pw-body">
+<p>Laboratorio esperienziale per famiglie con bambini 4-10 anni: attività ritmiche condivise per rafforzare il legame.</p>
+<ul class="pw-topics">
+<li>Giochi ritmici genitore-figlio</li>
+<li>Il cerchio familiare: ascolto e sintonizzazione</li>
+<li>Costruire routine ritmiche a casa</li>
+<li>8 incontri — cadenza quindicinale</li>
+</ul></div></div>
+<div class="pw-card">
+<div class="pw-header" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="pw-num">3</div><h4>Co-Genitorialità dopo la Separazione</h4></div>
+<div class="pw-body">
+<p>Percorso dedicato a genitori separati o in fase di separazione: mantenere un'alleanza educativa efficace per il benessere dei figli.</p>
+<ul class="pw-topics">
+<li>Comunicazione efficace tra genitori separati</li>
+<li>Proteggere i figli dal conflitto genitoriale</li>
+<li>Costruire routine condivise tra le due case</li>
+<li>10 incontri — individuale o di coppia</li>
+</ul></div></div>
+</div></div>
+</section>
+<!-- COMMUNITY -->
+<section class="section interact-section" id="interact">
+<div class="container">
+<div class="section-header"><h2>💬 Community</h2><p>Partecipa alla discussione, condividi le tue esperienze e resta aggiornato sulle novità della Psicoritmica</p><div class="line"></div></div>
+<div class="interact-grid">
+<div class="comment-box">
+<h3>💭 Commenti della Community</h3>
+<div class="comment-list" id="commentList">
+<p style="font-size:14px;color:var(--tlr);text-align:center;padding:30px 0">Nessun commento ancora. Sii il primo a condividere la tua esperienza!</p>
+</div>
+<div style="margin-top:20px">
+<h3 style="font-size:17px;font-weight:700;color:var(--p);margin-bottom:14px">✍️ Lascia un Commento</h3>
+<form id="commentForm" onsubmit="addComment(event)">
+<div class="form-row"><label>Nome</label><input type="text" id="commentName" placeholder="Il tuo nome" required></div>
+<div class="form-row"><label>Commento</label><textarea id="commentText" placeholder="Condividi la tua esperienza o fai una domanda..." required></textarea></div>
+<button type="submit" class="btn-submit">Pubblica Commento</button>
+</form>
+</div>
+</div>
+<div>
+<div class="newsletter-box">
+<h3>📬 Newsletter Psicoritmica</h3>
+<p>Ricevi articoli, aggiornamenti sui corsi e risorse esclusive direttamente nella tua casella email. Niente spam, solo contenuti di valore.</p>
+<form id="newsletterForm" onsubmit="subscribeNewsletter(event)">
+<div class="newsletter-form">
+<input type="email" id="newsletterEmail" placeholder="La tua email..." required>
+<button type="submit">Iscriviti</button>
+</div>
+</form>
+</div>
+<div style="margin-top:30px;background:var(--bgc);border-radius:var(--r);padding:28px;border:1px solid var(--b)">
+<h3 style="font-size:19px;font-weight:700;color:var(--p);margin-bottom:18px">📊 Sondaggio Rapido</h3>
+<p style="font-size:14px;color:var(--tl);margin-bottom:16px">Quale tema vorresti approfondire nel prossimo articolo del blog?</p>
+<form id="pollForm" onsubmit="submitPoll(event)">
+<div class="form-row">
+<select id="pollChoice" required>
+<option value="">Scegli un argomento...</option>
+<option value="neuroscience">Neuroscienze del ritmo</option>
+<option value="activities">Nuove attività pratiche</option>
+<option value="school">Psicoritmica a scuola</option>
+<option value="parents">Supporto genitoriale</option>
+<option value="adolescents">Lavoro con adolescenti</option>
+<option value="research">Ricerca e evidenze</option>
+</select>
+</div>
+<button type="submit" class="btn-submit">Vota</button>
+</form>
+</div>
+<div style="margin-top:30px;background:var(--bgc);border-radius:var(--r);padding:28px;border:1px solid var(--b)">
+<h3 style="font-size:19px;font-weight:700;color:var(--p);margin-bottom:18px">📅 Prossimi Eventi</h3>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:15px;align-items:center;padding:14px;background:#fff;border-radius:12px;border:1px solid var(--b)">
+<div style="background:var(--a);color:var(--p);border-radius:10px;padding:8px 12px;text-align:center;font-weight:800;min-width:50px"><div style="font-size:18px;line-height:1">28</div><div style="font-size:10px;text-transform:uppercase">Apr</div></div>
+<div><div style="font-size:14px;font-weight:700;color:var(--p)">Workshop: Il Cerchio Ritmico</div><div style="font-size:12px;color:var(--tlr)">Centro Clinico Palermo · 15:00-18:00</div></div>
+</div>
+<div style="display:flex;gap:15px;align-items:center;padding:14px;background:#fff;border-radius:12px;border:1px solid var(--b)">
+<div style="background:var(--a);color:var(--p);border-radius:10px;padding:8px 12px;text-align:center;font-weight:800;min-width:50px"><div style="font-size:18px;line-height:1">10</div><div style="font-size:10px;text-transform:uppercase">Mag</div></div>
+<div><div style="font-size:14px;font-weight:700;color:var(--p)">Modulo 1 — Insegnanti (Inizio)</div><div style="font-size:12px;color:var(--tlr)">Online + Presenza · 6 sabati</div></div>
+</div>
+<div style="display:flex;gap:15px;align-items:center;padding:14px;background:#fff;border-radius:12px;border:1px solid var(--b)">
+<div style="background:var(--a);color:var(--p);border-radius:10px;padding:8px 12px;text-align:center;font-weight:800;min-width:50px"><div style="font-size:18px;line-height:1">24</div><div style="font-size:10px;text-transform:uppercase">Mag</div></div>
+<div><div style="font-size:14px;font-weight:700;color:var(--p)">Gruppo Genitori — Ciclo Primavera</div><div style="font-size:12px;color:var(--tlr)">Centro Clinico Palermo · 17:00-19:00</div></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<!-- BOOKING -->
+<section class="section booking-section" id="booking">
+<div class="container">
+<div class="section-header"><h2>📅 Prenota una Sessione</h2><p>Compila il modulo per richiedere un appuntamento o maggiori informazioni sui nostri servizi</p><div class="line"></div></div>
+<div class="booking-card">
+<h3>Richiedi un Appuntamento</h3>
+<p class="subtitle">Ti ricontatteremo entro 24 ore per confermare la disponibilità</p>
+<form id="bookingForm" onsubmit="submitBooking(event)">
+<div class="form-grid">
+<div class="form-row"><label>Nome *</label><input type="text" id="bookName" placeholder="Il tuo nome" required></div>
+<div class="form-row"><label>Cognome *</label><input type="text" id="bookSurname" placeholder="Il tuo cognome" required></div>
+<div class="form-row"><label>Email *</label><input type="email" id="bookEmail" placeholder="email@esempio.com" required></div>
+<div class="form-row"><label>Telefono</label><input type="tel" id="bookPhone" placeholder="+39 ..."></div>
+<div class="form-row form-full">
+<label>Servizio di Interesse *</label>
+<div class="booking-services" id="bookingServices">
+<div class="service-option" onclick="selectService(this)" data-service="terapia-gruppo">🥁 Terapia di Gruppo</div>
+<div class="service-option" onclick="selectService(this)" data-service="terapia-individuale">🧠 Consulenza Individuale</div>
+<div class="service-option" onclick="selectService(this)" data-service="formazione-insegnanti">🎓 Formazione Insegnanti</div>
+<div class="service-option" onclick="selectService(this)" data-service="supporto-genitori">👨‍👩‍👧 Supporto Genitori</div>
+<div class="service-option" onclick="selectService(this)" data-service="laboratorio-famiglia">🎶 Laboratorio Famiglia</div>
+<div class="service-option" onclick="selectService(this)" data-service="altro">📋 Altro / Informazioni</div>
+</div>
+</div>
+<div class="form-row form-full"><label>Messaggio</label><textarea id="bookMessage" placeholder="Descrivi brevemente la tua richiesta o le tue esigenze..." rows="4"></textarea></div>
+<div class="form-row form-full"><label>Preferenza Oraria</label>
+<select id="bookTime">
+<option value="">Seleziona una fascia oraria...</option>
+<option value="mattina">Mattina (9:00-13:00)</option>
+<option value="pomeriggio">Pomeriggio (14:00-18:00)</option>
+<option value="sera">Tardo pomeriggio (18:00-20:00)</option>
+<option value="flessibile">Flessibile</option>
+</select></div>
+</div>
+<input type="hidden" id="selectedService" value="">
+<button type="submit" class="btn-book">📅 Invia Richiesta di Prenotazione</button>
+</form>
+</div></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-grid">
+<div class="footer-brand">
+<div class="nav-logo" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff">Psicoritmica</div>
+<p>Il ritmo come strumento terapeutico per il benessere di bambini, adolescenti e famiglie. Un approccio clinico innovativo ideato dal Dott. Manfredi Culotta.</p>
+</div>
+<div>
+<h4>Navigazione</h4>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">Chi Sono</a></li>
+<li><a href="#blog">Blog</a></li>
+<li><a href="#teachers">Insegnanti</a></li>
+<li><a href="#parents">Genitori</a></li>
+<li><a href="#booking">Prenota</a></li>
+</ul>
+</div>
+<div>
+<h4>Servizi</h4>
+<ul>
+<li><a href="#booking">Terapia di Gruppo</a></li>
+<li><a href="#booking">Consulenza Individuale</a></li>
+<li><a href="#teachers">Formazione Docenti</a></li>
+<li><a href="#parents">Supporto Genitori</a></li>
+<li><a href="#parents">Laboratori Famiglia</a></li>
+</ul>
+</div>
+<div>
+<h4>Contatti</h4>
+<ul>
+<li><a href="mailto:dottmanfrediculotta@gmail.com">📧 dottmanfrediculotta@gmail.com</a></li>
+<li><a href="#">📍 Centro Clinico di Palermo</a></li>
+<li><a href="#">🔗 LinkedIn</a></li>
+<li><a href="#">📷 Instagram</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 Psicoritmica — Dott. Manfredi Culotta. Tutti i diritti riservati.</span>
+<span>P.IVA: XXXXXXXXXXX | Albo Psicologi Sicilia</span>
+</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+<div class="modal">
+<div class="check">✓</div>
+<h3 id="modalTitle">Inviato con Successo!</h3>
+<p id="modalMessage">La tua richiesta è stata ricevuta. Ti ricontatteremo al più presto.</p>
+<button class="modal-close" onclick="closeModal()">Chiudi</button>
+</div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+document.querySelectorAll('.nav-links a').forEach(function(link){link.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('show')})});
+function selectService(el){document.querySelectorAll('.service-option').forEach(function(o){o.classList.remove('selected')});el.classList.add('selected');document.getElementById('selectedService').value=el.getAttribute('data-service')}
+function showModal(t,m){document.getElementById('modalTitle').textContent=t;document.getElementById('modalMessage').textContent=m;document.getElementById('modalOverlay').classList.add('active')}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active')}
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+function submitBooking(e){e.preventDefault();if(!document.getElementById('selectedService').value){alert('Per favore, seleziona un servizio di interesse.');return}showModal('Richiesta Inviata!','Grazie per averci contattato. Ti ricontatteremo entro 24 ore per confermare il tuo appuntamento.');e.target.reset();document.querySelectorAll('.service-option').forEach(function(o){o.classList.remove('selected')});document.getElementById('selectedService').value=''}
+function addComment(e){e.preventDefault();var n=document.getElementById('commentName').value;var t=document.getElementById('commentText').value;var d=new Date();var months=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];var ds=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();var h='<div class="comment"><div class="comment-header"><span class="comment-author">'+n+'</span><span class="comment-date">'+ds+'</span></div><div class="comment-text">'+t+'</div></div>';document.getElementById('commentList').insertAdjacentHTML('afterbegin',h);e.target.reset();showModal('Commento Pubblicato!','Grazie per aver condiviso la tua esperienza con la community.')}
+function subscribeNewsletter(e){e.preventDefault();showModal('Iscrizione Confermata!','Benvenuto nella newsletter di Psicoritmica! Riceverai i prossimi aggiornamenti direttamente nella tua casella email.');e.target.reset()}
+function submitPoll(e){e.preventDefault();showModal('Voto Registrato!','Grazie per aver partecipato al sondaggio. Il tuo voto ci aiuta a creare contenuti sempre più utili.');e.target.reset()}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-64,behavior:'smooth'})}})});
+var nb=document.querySelector('.navbar');window.addEventListener('scroll',function(){if(window.scrollY>100){nb.style.background='rgba(26,54,93,.99)';nb.style.boxShadow='0 4px 30px rgba(0,0,0,.2)'}else{nb.style.background='rgba(26,54,93,.97)';nb.style.boxShadow='0 2px 20px rgba(0,0,0,.15)'}});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)'}})},{threshold:0.1});
+document.querySelectorAll('.post-card,.module-card,.pillar-card,.pw-card,.pv-card').forEach(function(el){el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.6s ease,transform 0.6s ease';obs.observe(el)});
+</script>
+</body>
+</html>
