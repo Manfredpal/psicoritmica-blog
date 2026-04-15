@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://manfredpal.github.io/psicoritmica-blog/sitemap.xml
