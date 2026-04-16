@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prenota - Psicoritmica | Dott. Manfredi Culotta</title>
+<meta name="description" content="Prenota una sessione di Psicoritmica con il Dott. Manfredi Culotta. Terapia di gruppo, consulenza individuale, formazione insegnanti e supporto genitoriale.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--p:#1a365d;--pl:#2c5282;--a:#d69e2e;--al:#f6e05e;--t:#1a202c;--tl:#4a5568;--tlr:#718096;--bgc:#f7fafc;--bgw:#fffaf0;--b:#e2e8f0;--ok:#38a169;--r:16px;--sh:0 4px 6px rgba(0,0,0,.07)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--t);line-height:1.7;background:var(--bgc);min-height:100vh}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--p) 0%,#2d3748 100%);color:#fff;padding:20px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{text-decoration:none;color:#fff;display:flex;align-items:center;gap:12px}
+.logo-text{font-family:'Playfair Display',serif;font-size:24px;font-weight:900}
+.logo-sub{font-size:11px;opacity:.7;font-weight:400}
+.header-nav{display:flex;gap:16px;align-items:center}
+.header-nav a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;font-weight:500;transition:.3s}
+.header-nav a:hover{color:#fff}
+.back-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);padding:8px 16px;border-radius:30px;font-size:13px;color:#fff;text-decoration:none;transition:.3s}
+.back-btn:hover{background:rgba(255,255,255,.2)}
+
+/* Main Layout */
+.main{max-width:1100px;margin:0 auto;padding:32px 24px}
+.page-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:900;color:var(--p);margin-bottom:8px}
+.page-subtitle{color:var(--tlr);font-size:15px;margin-bottom:32px}
+
+/* Booking Steps */
+.steps{display:flex;gap:0;margin-bottom:40px;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.step{flex:1;padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.3s;border-bottom:3px solid transparent;position:relative}
+.step.active{background:rgba(26,54,93,.04);border-bottom-color:var(--p)}
+.step.completed{background:rgba(56,161,105,.04);border-bottom-color:var(--ok)}
+.step.completed .step-num{background:var(--ok);color:#fff}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--b);color:var(--tlr);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:.3s;flex-shrink:0}
+.step.active .step-num{background:var(--p);color:#fff}
+.step-info h4{font-size:13px;color:var(--t);font-weight:600}
+.step-info p{font-size:11px;color:var(--tlr)}
+
+/* Panels */
+.panel{display:none;background:#fff;border-radius:var(--r);padding:32px;box-shadow:var(--sh);animation:fadeIn .4s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Services Grid */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.service-card{background:#fff;border:2px solid var(--b);border-radius:var(--r);padding:24px;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+.service-card:hover{border-color:var(--pl);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,54,93,.12)}
+.service-card.selected{border-color:var(--p);background:rgba(26,54,93,.03)}
+.service-card.selected::after{content:'\2713';position:absolute;top:12px;right:12px;width:28px;height:28px;background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.service-icon{font-size:36px;margin-bottom:12px}
+.service-name{font-size:17px;font-weight:700;color:var(--p);margin-bottom:6px}
+.service-desc{font-size:13px;color:var(--tlr);line-height:1.5;margin-bottom:12px}
+.service-meta{display:flex;gap:16px;font-size:12px;color:var(--tl)}
+.service-meta span{display:flex;align-items:center;gap:4px}
+
+/* Calendar */
+.calendar-container{max-width:600px;margin:0 auto}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.calendar-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--p)}
+.cal-nav{display:flex;gap:8px}
+.cal-nav button{width:36px;height:36px;border-radius:50%;border:1px solid var(--b);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.3s;color:var(--tl)}
+.cal-nav button:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-day-name{font-size:12px;font-weight:600;color:var(--tlr);padding:8px 0;text-transform:uppercase}
+.cal-day{padding:10px 4px;border-radius:10px;cursor:pointer;transition:.3s;font-size:14px;font-weight:500;position:relative}
+.cal-day:hover:not(.disabled):not(.empty){background:rgba(26,54,93,.06)}
+.cal-day.today{font-weight:700;color:var(--p)}
+.cal-day.today::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:var(--a);border-radius:50%}
+.cal-day.selected{background:var(--p);color:#fff;font-weight:700}
+.cal-day.selected::after{background:#fff}
+.cal-day.disabled{opacity:.3;cursor:default;pointer-events:none}
+.cal-day.empty{pointer-events:none}
+
+/* Time Slots */
+.time-section{margin-top:28px}
+.time-section h3{font-size:16px;font-weight:700;color:var(--p);margin-bottom:16px}
+.time-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.time-slot{padding:12px;border:2px solid var(--b);border-radius:10px;text-align:center;cursor:pointer;transition:.3s;font-size:14px;font-weight:500}
+.time-slot:hover{border-color:var(--pl);background:rgba(26,54,93,.03)}
+.time-slot.selected{background:var(--p);color:#fff;border-color:var(--p)}
+.time-slot.disabled{opacity:.3;cursor:default;pointer-events:none}
+
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{margin-bottom:0}
+.form-group.full{grid-column:1/-1}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--tl);margin-bottom:6px}
+.form-group label .req{color:#e53e3e}
+.form-input{width:100%;padding:12px 16px;border:2px solid var(--b);border-radius:10px;font-size:14px;font-family:inherit;transition:.3s;background:#fff}
+.form-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(26,54,93,.1)}
+.form-input::placeholder{color:#cbd5e0}
+textarea.form-input{min-height:100px;resize:vertical}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
+
+/* Privacy */
+.privacy-check{display:flex;align-items:flex-start;gap:10px;margin-top:16px;padding:16px;background:var(--bgc);border-radius:10px}
+.privacy-check input[type="checkbox"]{margin-top:3px;width:18px;height:18px;accent-color:var(--p)}
+.privacy-check label{font-size:12px;color:var(--tl);line-height:1.5}
+
+/* Summary */
+.summary-card{background:linear-gradient(135deg,rgba(26,54,93,.03),rgba(44,82,130,.05));border:2px solid var(--b);border-radius:var(--r);padding:32px;max-width:600px;margin:0 auto}
+.summary-header{text-align:center;margin-bottom:24px}
+.summary-header h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--p);margin-bottom:4px}
+.summary-header p{font-size:13px;color:var(--tlr)}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--b)}
+.summary-row:last-child{border-bottom:none}
+.summary-label{font-size:13px;color:var(--tlr);display:flex;align-items:center;gap:8px}
+.summary-value{font-size:14px;font-weight:600;color:var(--t)}
+
+/* Buttons */
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--b)}
+.btn{padding:12px 28px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;transition:.3s;border:none;font-family:inherit;display:flex;align-items:center;gap:8px}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:var(--pl);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,54,93,.3)}
+.btn-secondary{background:transparent;color:var(--tl);border:2px solid var(--b)}
+.btn-secondary:hover{border-color:var(--tl)}
+.btn-success{background:var(--ok);color:#fff;font-size:16px;padding:16px 40px}
+.btn-success:hover{background:#2f855a}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Confirmation */
+.confirmation{text-align:center;padding:48px 24px;max-width:600px;margin:0 auto}
+.confirm-icon{width:80px;height:80px;background:var(--ok);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:40px;color:#fff;animation:scaleIn .5s ease}
+@keyframes scaleIn{from{transform:scale(0)}to{transform:scale(1)}}
+.confirm-title{font-family:'Playfair Display',serif;font-size:32px;color:var(--p);margin-bottom:8px}
+.confirm-subtitle{font-size:15px;color:var(--tlr);margin-bottom:32px}
+.confirm-details{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--sh);text-align:left;margin-bottom:24px}
+.confirm-details h4{font-size:15px;color:var(--p);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--b)}
+.confirm-ref{background:var(--bgc);border-radius:10px;padding:16px;text-align:center;margin-bottom:24px}
+.confirm-ref span{font-size:11px;color:var(--tlr);display:block;margin-bottom:4px}
+.confirm-ref strong{font-size:24px;color:var(--p);letter-spacing:2px}
+
+/* Sidebar Info */
+.page-layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+.sidebar{position:sticky;top:100px}
+.info-card{background:#fff;border-radius:var(--r);padding:24px;box-shadow:var(--sh);margin-bottom:16px}
+.info-card h4{font-size:15px;font-weight:700;color:var(--p);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.info-card p{font-size:13px;color:var(--tlr);line-height:1.6}
+.info-card ul{list-style:none;padding:0}
+.info-card ul li{font-size:13px;color:var(--tl);padding:8px 0;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:8px}
+.info-card ul li:last-child{border:none}
+.contact-item{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--tl)}
+.contact-item a{color:var(--p);text-decoration:none;font-weight:500}
+
+/* Footer */
+.footer{background:var(--p);color:rgba(255,255,255,.7);text-align:center;padding:24px;margin-top:60px;font-size:12px}
+.footer a{color:var(--a);text-decoration:none}
+
+/* Responsive */
+@media(max-width:900px){
+.page-layout{grid-template-columns:1fr}
+.sidebar{position:static}
+.steps{flex-direction:column}
+.form-grid{grid-template-columns:1fr}
+.services-grid{grid-template-columns:1fr}
+.header-nav{display:none}
+}
+@media(max-width:600px){
+.page-title{font-size:28px}
+.calendar-grid{gap:2px}
+.cal-day{padding:8px 2px;font-size:12px}
+.time-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+<div class="header-inner">
+<a href="index.html" class="logo">
+<div>
+<div class="logo-text">Psicoritmica</div>
+<div class="logo-sub">Dott. Manfredi Culotta</div>
+</div>
+</a>
+<nav class="header-nav">
+<a href="index.html">Home</a>
+<a href="index.html#about">Chi Sono</a>
+<a href="index.html#blog">Blog</a>
+<a href="index.html#teachers">Insegnanti</a>
+<a class="back-btn" href="index.html">&#8592; Torna al sito</a>
+</nav>
+</div>
+</header>
+
+<main class="main">
+<h1 class="page-title">Prenota una Sessione</h1>
+<p class="page-subtitle">Seleziona il servizio, scegli data e orario e compila i tuoi dati. Ti ricontatteremo entro 24 ore.</p>
+
+<!-- Progress Steps -->
+<div class="steps">
+<div class="step active" data-step="1" onclick="goToStep(1)">
+<div class="step-num">1</div>
+<div class="step-info"><h4>Servizio</h4><p>Scegli il tipo</p></div>
+</div>
+<div class="step" data-step="2" onclick="goToStep(2)">
+<div class="step-num">2</div>
+<div class="step-info"><h4>Data e Ora</h4><p>Seleziona quando</p></div>
+</div>
+<div class="step" data-step="3" onclick="goToStep(3)">
+<div class="step-num">3</div>
+<div class="step-info"><h4>I Tuoi Dati</h4><p>Informazioni personali</p></div>
+</div>
+<div class="step" data-step="4" onclick="goToStep(4)">
+<div class="step-num">4</div>
+<div class="step-info"><h4>Conferma</h4><p>Riepilogo finale</p></div>
+</div>
+</div>
+
+<div class="page-layout">
+<div class="panels">
+
+<!-- Panel 1: Service Selection -->
+<div class="panel active" id="panel1">
+<h2 style="font-size:20px;font-weight:700;color:var(--p);margin-bottom:4px">Scegli il Servizio</h2>
+<p style="font-size:13px;color:var(--tlr);margin-bottom:24px">Seleziona il servizio di tuo interesse. Potrai aggiungere dettagli successivamente.</p>
+<div class="services-grid">
+
+<div class="service-card" onclick="selectService(this,'terapia-gruppo')" data-service="terapia-gruppo">
+<div class="service-icon">&#129345;</div>
+<div class="service-name">Terapia di Gruppo</div>
+<div class="service-desc">Sessioni di gruppo che utilizzano il ritmo e il movimento per promuovere la regolazione emotiva e le competenze sociali.</div>
+<div class="service-meta"><span>&#9202; 60-90 min</span><span>&#128101; 4-8 partecipanti</span><span>&#127968; In presenza</span></div>
+</div>
+
+<div class="service-card" onclick="selectService(this,'consulenza-individuale')" data-service="consulenza-individuale">
+<div class="service-icon">&#129504;</div>
+<div class="service-name">Consulenza Individuale</div>
+<div class="service-desc">Percorso individuale di valutazione e supporto psicologico integrato con tecniche ritmiche e corporee.</div>
+<div class="service-meta"><span>&#9202; 50 min</span><span>&#128100; Individuale</span><span>&#128187; Anche online</span></div>
+</div>
+
+<div class="service-card" onclick="selectService(this,'formazione-insegnanti')" data-service="formazione-insegnanti">
+<div class="service-icon">&#127891;</div>
+<div class="service-name">Formazione Insegnanti</div>
+<div class="service-desc">Moduli formativi per docenti: integrare il ritmo nella didattica e nella gestione della classe.</div>
+<div class="service-meta"><span>&#9202; 12-20 ore</span><span>&#128101; Max 25</span><span>&#128196; Attestato ECM</span></div>
+</div>
+
+<div class="service-card" onclick="selectService(this,'supporto-genitori')" data-service="supporto-genitori">
+<div class="service-icon">&#128106;</div>
+<div class="service-name">Supporto Genitori</div>
+<div class="service-desc">Percorsi di co-genitorialita e supporto alle competenze genitoriali attraverso il modello psicoritmico.</div>
+<div class="service-meta"><span>&#9202; 60 min</span><span>&#128101; Coppia/Gruppo</span><span>&#127968; In presenza</span></div>
+</div>
+
+<div class="service-card" onclick="selectService(this,'laboratorio-famiglia')" data-service="laboratorio-famiglia">
+<div class="service-icon">&#127926;</div>
+<div class="service-name">Laboratorio Famiglia</div>
+<div class="service-desc">Sessioni pratiche genitori-figli con attivita ritmiche condivise per rafforzare il legame familiare.</div>
+<div class="service-meta"><span>&#9202; 90 min</span><span>&#128101; Famiglie</span><span>&#127968; In presenza</span></div>
+</div>
+
+<div class="service-card" onclick="selectService(this,'informazioni')" data-service="informazioni">
+<div class="service-icon">&#128203;</div>
+<div class="service-name">Richiedi Informazioni</div>
+<div class="service-desc">Hai domande sui nostri servizi? Prenota un colloquio conoscitivo gratuito per saperne di piu.</div>
+<div class="service-meta"><span>&#9202; 20 min</span><span>&#128222; Telefonico/Online</span><span>&#127775; Gratuito</span></div>
+</div>
+
+</div>
+<div class="btn-row">
+<div></div>
+<button class="btn btn-primary" onclick="nextStep()" id="btn-next-1" disabled>Continua &#8594;</button>
+</div>
+</div>
+
+<!-- Panel 2: Calendar -->
+<div class="panel" id="panel2">
+<div class="calendar-container">
+<div class="calendar-header">
+<div class="cal-nav"><button onclick="changeMonth(-1)">&#8249;</button></div>
+<h3 class="calendar-title" id="calTitle"></h3>
+<div class="cal-nav"><button onclick="changeMonth(1)">&#8250;</button></div>
+</div>
+<div class="calendar-grid" id="calGrid"></div>
+<div class="time-section" id="timeSection" style="display:none">
+<h3>&#128338; Seleziona un Orario</h3>
+<div class="time-grid" id="timeGrid"></div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-secondary" onclick="prevStep()">&#8592; Indietro</button>
+<button class="btn btn-primary" onclick="nextStep()" id="btn-next-2" disabled>Continua &#8594;</button>
+</div>
+</div>
+
+<!-- Panel 3: Personal Data Form -->
+<div class="panel" id="panel3">
+<h2 style="font-size:20px;font-weight:700;color:var(--p);margin-bottom:4px">I Tuoi Dati</h2>
+<p style="font-size:13px;color:var(--tlr);margin-bottom:24px">Compila il modulo con le tue informazioni. I campi contrassegnati con * sono obbligatori.</p>
+<div class="form-grid">
+<div class="form-group">
+<label>Nome <span class="req">*</span></label>
+<input type="text" class="form-input" id="fname" placeholder="Il tuo nome" required>
+</div>
+<div class="form-group">
+<label>Cognome <span class="req">*</span></label>
+<input type="text" class="form-input" id="lname" placeholder="Il tuo cognome" required>
+</div>
+<div class="form-group">
+<label>Email <span class="req">*</span></label>
+<input type="email" class="form-input" id="email" placeholder="email@esempio.com" required>
+</div>
+<div class="form-group">
+<label>Telefono</label>
+<input type="tel" class="form-input" id="phone" placeholder="+39 ...">
+</div>
+<div class="form-group full">
+<label>Per chi e la prenotazione? <span class="req">*</span></label>
+<select class="form-input" id="forWho">
+<option value="">Seleziona...</option>
+<option value="me">Per me stesso/a</option>
+<option value="child">Per mio/a figlio/a</option>
+<option value="couple">Per la coppia genitoriale</option>
+<option value="family">Per la famiglia</option>
+<option value="school">Per la scuola/istituto</option>
+<option value="other">Altro</option>
+</select>
+</div>
+<div class="form-group full" id="childAgeGroup" style="display:none">
+<label>Eta del bambino/ragazzo</label>
+<select class="form-input" id="childAge">
+<option value="">Seleziona fascia di eta...</option>
+<option value="3-5">3-5 anni</option>
+<option value="6-8">6-8 anni</option>
+<option value="9-11">9-11 anni</option>
+<option value="12-14">12-14 anni</option>
+<option value="15-17">15-17 anni</option>
+</select>
+</div>
+<div class="form-group full">
+<label>Note o richieste particolari</label>
+<textarea class="form-input" id="notes" placeholder="Descrivi brevemente le tue esigenze o eventuali domande..."></textarea>
+</div>
+<div class="form-group full">
+<label>Come ci hai conosciuto?</label>
+<select class="form-input" id="howFound">
+<option value="">Seleziona...</option>
+<option value="google">Ricerca Google</option>
+<option value="social">Social Media</option>
+<option value="doctor">Consiglio medico/specialista</option>
+<option value="school">Tramite la scuola</option>
+<option value="friend">Passaparola</option>
+<option value="other">Altro</option>
+</select>
+</div>
+</div>
+<div class="privacy-check">
+<input type="checkbox" id="privacy">
+<label for="privacy">Acconsento al trattamento dei miei dati personali ai sensi del GDPR (Reg. UE 2016/679). I dati saranno utilizzati esclusivamente per gestire la prenotazione e non saranno condivisi con terzi.</label>
+</div>
+<div class="btn-row">
+<button class="btn btn-secondary" onclick="prevStep()">&#8592; Indietro</button>
+<button class="btn btn-primary" onclick="nextStep()" id="btn-next-3">Rivedi e Conferma &#8594;</button>
+</div>
+</div>
+
+<!-- Panel 4: Summary & Confirm -->
+<div class="panel" id="panel4">
+<div class="summary-card">
+<div class="summary-header">
+<h3>Riepilogo Prenotazione</h3>
+<p>Verifica i dati e conferma</p>
+</div>
+<div id="summaryContent"></div>
+</div>
+<div style="text-align:center;margin-top:28px">
+<button class="btn btn-success" onclick="submitBooking()" id="btnSubmit">&#128197; Conferma Prenotazione</button>
+<p style="font-size:12px;color:var(--tlr);margin-top:12px">Ti ricontatteremo via email entro 24 ore per confermare la disponibilita.</p>
+</div>
+<div class="btn-row" style="border:none">
+<button class="btn btn-secondary" onclick="prevStep()">&#8592; Modifica dati</button>
+<div></div>
+</div>
+</div>
+
+<!-- Panel 5: Confirmation -->
+<div class="panel" id="panel5">
+<div class="confirmation">
+<div class="confirm-icon">&#10003;</div>
+<h2 class="confirm-title">Prenotazione Inviata!</h2>
+<p class="confirm-subtitle">La tua richiesta e stata ricevuta con successo.</p>
+<div class="confirm-ref">
+<span>Codice di riferimento</span>
+<strong id="refCode"></strong>
+</div>
+<div class="confirm-details">
+<h4>&#128197; Dettagli della prenotazione</h4>
+<div id="confirmDetails"></div>
+</div>
+<p style="font-size:13px;color:var(--tlr);margin-bottom:24px">Ti abbiamo inviato un riepilogo all'indirizzo email fornito.<br>Il Dott. Culotta ti contattera entro 24 ore per confermare la disponibilita.</p>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<a href="index.html" class="btn btn-primary">&#127968; Torna al sito</a>
+<button class="btn btn-secondary" onclick="newBooking()">&#10010; Nuova prenotazione</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+<div class="info-card">
+<h4>&#128197; Riepilogo Selezione</h4>
+<ul id="sidebarSummary">
+<li style="color:var(--tlr);font-style:italic">Seleziona un servizio per iniziare</li>
+</ul>
+</div>
+<div class="info-card">
+<h4>&#128337; Orari di Ricevimento</h4>
+<ul>
+<li>&#128338; Lunedi - Venerdi: 9:00 - 20:00</li>
+<li>&#128338; Sabato: 9:00 - 13:00</li>
+<li>&#128338; Domenica: Chiuso</li>
+</ul>
+</div>
+<div class="info-card">
+<h4>&#128222; Contatti</h4>
+<div class="contact-item">&#128231; <a href="mailto:dottmanfrediculotta@gmail.com">dottmanfrediculotta@gmail.com</a></div>
+<div class="contact-item">&#128205; Centro Clinico di Palermo</div>
+</div>
+<div class="info-card">
+<h4>&#128161; Lo sapevi?</h4>
+<p>Il primo colloquio conoscitivo e sempre gratuito e senza impegno. Serve per capire insieme quale percorso sia piu adatto alle tue esigenze.</p>
+</div>
+</aside>
+
+</div>
+</main>
+
+<footer class="footer">
+<p>&copy; 2026 Psicoritmica &mdash; Dott. Manfredi Culotta | <a href="index.html">Torna al sito principale</a></p>
+</footer>
+<script>
+var currentStep=1;
+var booking={service:'',serviceName:'',date:null,time:'',fname:'',lname:'',email:'',phone:'',forWho:'',childAge:'',notes:'',howFound:''};
+var currentMonth=new Date().getMonth();
+var currentYear=new Date().getFullYear();
+var months=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+var dayNames=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+var serviceNames={'terapia-gruppo':'Terapia di Gruppo','consulenza-individuale':'Consulenza Individuale','formazione-insegnanti':'Formazione Insegnanti','supporto-genitori':'Supporto Genitori','laboratorio-famiglia':'Laboratorio Famiglia','informazioni':'Colloquio Conoscitivo'};
+var timeSlots={mattina:['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30'],pomeriggio:['14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'],sera:['18:00','18:30','19:00','19:30']};
+
+function selectService(el,svc){
+document.querySelectorAll('.service-card').forEach(function(c){c.classList.remove('selected')});
+el.classList.add('selected');
+booking.service=svc;
+booking.serviceName=serviceNames[svc]||svc;
+document.getElementById('btn-next-1').disabled=false;
+updateSidebar();
+}
+
+function goToStep(s){
+if(s>currentStep)return;
+showStep(s);
+}
+
+function nextStep(){
+if(currentStep===1&&!booking.service){alert('Seleziona un servizio');return}
+if(currentStep===2&&(!booking.date||!booking.time)){alert('Seleziona data e orario');return}
+if(currentStep===3){
+booking.fname=document.getElementById('fname').value.trim();
+booking.lname=document.getElementById('lname').value.trim();
+booking.email=document.getElementById('email').value.trim();
+booking.phone=document.getElementById('phone').value.trim();
+booking.forWho=document.getElementById('forWho').value;
+booking.childAge=document.getElementById('childAge').value;
+booking.notes=document.getElementById('notes').value.trim();
+booking.howFound=document.getElementById('howFound').value;
+if(!booking.fname||!booking.lname||!booking.email||!booking.forWho){alert('Compila tutti i campi obbligatori');return}
+if(!document.getElementById('privacy').checked){alert('Devi accettare il trattamento dei dati personali');return}
+buildSummary();
+}
+showStep(currentStep+1);
+}
+
+function prevStep(){showStep(currentStep-1)}
+
+function showStep(s){
+currentStep=s;
+document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+document.getElementById('panel'+s).classList.add('active');
+document.querySelectorAll('.step').forEach(function(st){
+var stepNum=parseInt(st.getAttribute('data-step'));
+st.classList.remove('active','completed');
+if(stepNum===s)st.classList.add('active');
+else if(stepNum<s)st.classList.add('completed');
+});
+if(s===2)renderCalendar();
+window.scrollTo({top:0,behavior:'smooth'});
+updateSidebar();
+}
+
+function renderCalendar(){
+var firstDay=(new Date(currentYear,currentMonth,1).getDay()+6)%7;
+var daysInMonth=new Date(currentYear,currentMonth+1,0).getDate();
+var today=new Date();
+document.getElementById('calTitle').textContent=months[currentMonth]+' '+currentYear;
+var html='';
+dayNames.forEach(function(d){html+='<div class="cal-day-name">'+d+'</div>'});
+for(var i=0;i<firstDay;i++)html+='<div class="cal-day empty"></div>';
+for(var d=1;d<=daysInMonth;d++){
+var date=new Date(currentYear,currentMonth,d);
+var isPast=date<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+var isSun=date.getDay()===0;
+var isToday=d===today.getDate()&&currentMonth===today.getMonth()&&currentYear===today.getFullYear();
+var isSelected=booking.date&&d===booking.date.getDate()&&currentMonth===booking.date.getMonth()&&currentYear===booking.date.getFullYear();
+var cls='cal-day';
+if(isPast||isSun)cls+=' disabled';
+if(isToday)cls+=' today';
+if(isSelected)cls+=' selected';
+html+='<div class="'+cls+'" onclick="selectDate('+d+')">'+d+'</div>';
+}
+document.getElementById('calGrid').innerHTML=html;
+}
+
+function changeMonth(dir){
+currentMonth+=dir;
+if(currentMonth>11){currentMonth=0;currentYear++}
+if(currentMonth<0){currentMonth=11;currentYear--}
+renderCalendar();
+}
+
+function selectDate(d){
+var date=new Date(currentYear,currentMonth,d);
+var today=new Date();
+today.setHours(0,0,0,0);
+if(date<today||date.getDay()===0)return;
+booking.date=date;
+renderCalendar();
+showTimeSlots();
+updateSidebar();
+}
+
+function showTimeSlots(){
+var sec=document.getElementById('timeSection');
+sec.style.display='block';
+var html='';
+var allSlots=[].concat(timeSlots.mattina,timeSlots.pomeriggio,timeSlots.sera);
+allSlots.forEach(function(t){
+var isSelected=booking.time===t;
+var rnd=Math.random()>.3;
+html+='<div class="time-slot'+(isSelected?' selected':'')+(rnd?'':' disabled')+'" onclick="selectTime(this,\''+t+'\')">'+t+'</div>';
+});
+document.getElementById('timeGrid').innerHTML=html;
+}
+
+function selectTime(el,t){
+if(el.classList.contains('disabled'))return;
+document.querySelectorAll('.time-slot').forEach(function(s){s.classList.remove('selected')});
+el.classList.add('selected');
+booking.time=t;
+document.getElementById('btn-next-2').disabled=false;
+updateSidebar();
+}
+
+function updateSidebar(){
+var html='';
+if(booking.serviceName)html+='<li>&#127915; '+booking.serviceName+'</li>';
+if(booking.date)html+='<li>&#128197; '+booking.date.getDate()+' '+months[booking.date.getMonth()]+' '+booking.date.getFullYear()+'</li>';
+if(booking.time)html+='<li>&#128338; Ore '+booking.time+'</li>';
+if(booking.fname)html+='<li>&#128100; '+booking.fname+' '+booking.lname+'</li>';
+if(booking.email)html+='<li>&#128231; '+booking.email+'</li>';
+if(!html)html='<li style="color:var(--tlr);font-style:italic">Seleziona un servizio per iniziare</li>';
+document.getElementById('sidebarSummary').innerHTML=html;
+}
+
+function buildSummary(){
+var forWhoText={'me':'Per me stesso/a','child':'Per mio/a figlio/a','couple':'Per la coppia','family':'Per la famiglia','school':'Per la scuola','other':'Altro'};
+var html='';
+html+='<div class="summary-row"><span class="summary-label">&#127915; Servizio</span><span class="summary-value">'+booking.serviceName+'</span></div>';
+html+='<div class="summary-row"><span class="summary-label">&#128197; Data</span><span class="summary-value">'+booking.date.getDate()+' '+months[booking.date.getMonth()]+' '+booking.date.getFullYear()+'</span></div>';
+html+='<div class="summary-row"><span class="summary-label">&#128338; Orario</span><span class="summary-value">'+booking.time+'</span></div>';
+html+='<div class="summary-row"><span class="summary-label">&#128100; Nome</span><span class="summary-value">'+booking.fname+' '+booking.lname+'</span></div>';
+html+='<div class="summary-row"><span class="summary-label">&#128231; Email</span><span class="summary-value">'+booking.email+'</span></div>';
+if(booking.phone)html+='<div class="summary-row"><span class="summary-label">&#128222; Telefono</span><span class="summary-value">'+booking.phone+'</span></div>';
+html+='<div class="summary-row"><span class="summary-label">&#128101; Per chi</span><span class="summary-value">'+(forWhoText[booking.forWho]||booking.forWho)+'</span></div>';
+if(booking.childAge)html+='<div class="summary-row"><span class="summary-label">&#128118; Eta</span><span class="summary-value">'+booking.childAge+' anni</span></div>';
+if(booking.notes)html+='<div class="summary-row"><span class="summary-label">&#128221; Note</span><span class="summary-value" style="max-width:240px;text-align:right">'+booking.notes.substring(0,100)+(booking.notes.length>100?'...':'')+'</span></div>';
+document.getElementById('summaryContent').innerHTML=html;
+}
+
+function submitBooking(){
+var btn=document.getElementById('btnSubmit');
+btn.disabled=true;
+btn.textContent='Invio in corso...';
+setTimeout(function(){
+var refCode='PSR-'+Date.now().toString(36).toUpperCase().substring(2,8);
+document.getElementById('refCode').textContent=refCode;
+var details='';
+details+='<div class="summary-row"><span class="summary-label">Servizio</span><span class="summary-value">'+booking.serviceName+'</span></div>';
+details+='<div class="summary-row"><span class="summary-label">Data</span><span class="summary-value">'+booking.date.getDate()+' '+months[booking.date.getMonth()]+' '+booking.date.getFullYear()+' ore '+booking.time+'</span></div>';
+details+='<div class="summary-row"><span class="summary-label">Richiedente</span><span class="summary-value">'+booking.fname+' '+booking.lname+'</span></div>';
+details+='<div class="summary-row"><span class="summary-label">Email</span><span class="summary-value">'+booking.email+'</span></div>';
+document.getElementById('confirmDetails').innerHTML=details;
+document.querySelector('.sidebar').style.display='none';
+showStep(5);
+btn.disabled=false;
+btn.innerHTML='&#128197; Conferma Prenotazione';
+},1500);
+}
+
+function newBooking(){
+booking={service:'',serviceName:'',date:null,time:'',fname:'',lname:'',email:'',phone:'',forWho:'',childAge:'',notes:'',howFound:''};
+document.querySelectorAll('.service-card').forEach(function(c){c.classList.remove('selected')});
+document.getElementById('btn-next-1').disabled=true;
+document.getElementById('btn-next-2').disabled=true;
+document.getElementById('fname').value='';
+document.getElementById('lname').value='';
+document.getElementById('email').value='';
+document.getElementById('phone').value='';
+document.getElementById('forWho').value='';
+document.getElementById('childAge').value='';
+document.getElementById('notes').value='';
+document.getElementById('howFound').value='';
+document.getElementById('privacy').checked=false;
+document.querySelector('.sidebar').style.display='';
+showStep(1);
+}
+
+document.getElementById('forWho').addEventListener('change',function(){
+document.getElementById('childAgeGroup').style.display=this.value==='child'?'block':'none';
+});
+
+renderCalendar();
+</script>
+</body>
+</html>
