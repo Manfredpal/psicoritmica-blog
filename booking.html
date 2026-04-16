@@ -165,6 +165,51 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 .cal-day{padding:8px 2px;font-size:12px}
 .time-grid{grid-template-columns:repeat(3,1fr)}
 }
+
+/* Admin Panel & Database Styles */
+.admin-toggle{position:fixed;bottom:20px;left:20px;z-index:1000;background:var(--p,#1a365d);color:#fff;border:none;border-radius:50%;width:50px;height:50px;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:all .3s}
+.admin-toggle:hover{background:var(--pl,#2c5282);transform:scale(1.1)}
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;justify-content:center;align-items:center}
+.admin-overlay.active{display:flex}
+.admin-panel{background:#fff;border-radius:16px;width:95%;max-width:900px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);padding:0}
+.admin-header{background:linear-gradient(135deg,var(--p,#1a365d),var(--pl,#2c5282));color:#fff;padding:24px 32px;border-radius:16px 16px 0 0;display:flex;justify-content:space-between;align-items:center}
+.admin-header h2{margin:0;font-size:1.4rem}
+.admin-close{background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer;padding:4px 8px;border-radius:8px}
+.admin-close:hover{background:rgba(255,255,255,.2)}
+.admin-body{padding:24px 32px}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:#f7fafc;border-radius:12px;padding:16px;text-align:center;border:1px solid #e2e8f0}
+.stat-card .stat-num{font-size:2rem;font-weight:700;color:var(--p,#1a365d)}
+.stat-card .stat-label{font-size:.8rem;color:#718096;margin-top:4px}
+.admin-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.admin-btn{padding:10px 20px;border:none;border-radius:8px;font-size:.9rem;cursor:pointer;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:8px}
+.admin-btn.primary{background:var(--a,#d69e2e);color:#fff}
+.admin-btn.primary:hover{background:#b7791f}
+.admin-btn.secondary{background:#e2e8f0;color:var(--p,#1a365d)}
+.admin-btn.secondary:hover{background:#cbd5e0}
+.admin-btn.danger{background:#fc8181;color:#fff}
+.admin-btn.danger:hover{background:#f56565}
+.booking-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.booking-table th{background:#f7fafc;padding:10px 12px;text-align:left;font-weight:600;color:var(--p,#1a365d);border-bottom:2px solid #e2e8f0;white-space:nowrap}
+.booking-table td{padding:10px 12px;border-bottom:1px solid #f0f0f0}
+.booking-table tr:hover td{background:#f7fafc}
+.status-badge{padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.status-confirmed{background:#c6f6d5;color:#276749}
+.status-pending{background:#fefcbf;color:#975a16}
+.status-cancelled{background:#fed7d7;color:#9b2c2c}
+.table-wrap{overflow-x:auto;margin-top:8px}
+.empty-state{text-align:center;padding:40px;color:#a0aec0}
+.empty-state span{font-size:3rem;display:block;margin-bottom:12px}
+.admin-search{width:100%;padding:10px 16px;border:2px solid #e2e8f0;border-radius:8px;font-size:.9rem;margin-bottom:16px}
+.admin-search:focus{outline:none;border-color:var(--a,#d69e2e)}
+.import-label{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:.9rem;cursor:pointer;font-weight:600;background:#e2e8f0;color:var(--p,#1a365d);transition:all .3s}
+.import-label:hover{background:#cbd5e0}
+.import-label input{display:none}
+.notif{position:fixed;top:20px;right:20px;padding:14px 24px;border-radius:10px;color:#fff;font-weight:600;z-index:3000;animation:slideIn .3s ease;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.notif.success{background:#48bb78}
+.notif.error{background:#f56565}
+.notif.info{background:#4299e1}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 </style>
 </head>
 <body>
@@ -433,6 +478,30 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
 </div>
 </main>
 
+<!-- Admin Panel - Database Prenotazioni -->
+<button class="admin-toggle" onclick="toggleAdmin()" title="Pannello Amministrazione">&#9881;</button>
+<div class="admin-overlay" id="adminOverlay">
+<div class="admin-panel">
+<div class="admin-header">
+<h2>&#128202; Database Prenotazioni</h2>
+<button class="admin-close" onclick="toggleAdmin()">&#10005;</button>
+</div>
+<div class="admin-body">
+<div class="admin-stats" id="adminStats"></div>
+<div class="admin-actions">
+<button class="admin-btn primary" onclick="exportDB()">&#128229; Esporta Archivio JSON</button>
+<button class="admin-btn primary" onclick="exportCSV()">&#128196; Esporta CSV</button>
+<label class="import-label">&#128228; Importa Archivio<input type="file" accept=".json" onchange="importDB(event)"></label>
+<button class="admin-btn secondary" onclick="syncFromFile()">&#128260; Sincronizza</button>
+<button class="admin-btn danger" onclick="clearAllBookings()">&#128465; Svuota Database</button>
+</div>
+<input class="admin-search" type="text" placeholder="Cerca per nome, email, servizio..." oninput="filterBookings(this.value)" id="searchBookings">
+<div class="table-wrap" id="bookingsTable"></div>
+</div>
+</div>
+</div>
+
+
 <footer class="footer">
 <p>&copy; 2026 Psicoritmica &mdash; Dott. Manfredi Culotta | <a href="index.html">Torna al sito principale</a></p>
 </footer>
@@ -603,6 +672,8 @@ showStep(5);
 btn.disabled=false;
 btn.innerHTML='&#128197; Conferma Prenotazione';
 },1500);
+
+    saveBookingToDB();
 }
 
 function newBooking(){
@@ -628,6 +699,295 @@ document.getElementById('childAgeGroup').style.display=this.value==='child'?'blo
 });
 
 renderCalendar();
+
+
+/* ============================================
+   DATABASE LOCALE - Sistema Prenotazioni
+   ============================================ */
+var DB_KEY = "psicoritmica_bookings";
+var DB_META_KEY = "psicoritmica_db_meta";
+
+function getDB() {
+  try {
+    var data = localStorage.getItem(DB_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch(e) { return []; }
+}
+
+function saveDB(bookings) {
+  localStorage.setItem(DB_KEY, JSON.stringify(bookings));
+  updateMeta();
+}
+
+function updateMeta() {
+  var bookings = getDB();
+  var meta = {
+    lastUpdated: new Date().toISOString(),
+    totalBookings: bookings.length,
+    confirmedBookings: bookings.filter(function(b){return b.status==="confermata"}).length,
+    pendingBookings: bookings.filter(function(b){return b.status==="in_attesa"}).length,
+    cancelledBookings: bookings.filter(function(b){return b.status==="cancellata"}).length
+  };
+  localStorage.setItem(DB_META_KEY, JSON.stringify(meta));
+}
+
+function generateRefCode() {
+  var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  var code = "PSR-";
+  for (var i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+  return code;
+}
+
+function saveBookingToDB() {
+  var bookings = getDB();
+  var refCode = generateRefCode();
+  var record = {
+    id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+    refCode: refCode,
+    service: booking.service || "",
+    serviceName: booking.serviceName || "",
+    date: booking.date || "",
+    time: booking.time || "",
+    firstName: booking.fname || "",
+    lastName: booking.lname || "",
+    email: booking.email || "",
+    phone: booking.phone || "",
+    forWho: booking.forWho || "",
+    childAge: booking.childAge || "",
+    notes: booking.notes || "",
+    howFound: booking.howFound || "",
+    status: "confermata",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  bookings.push(record);
+  saveDB(bookings);
+  var refEl = document.getElementById("refCode");
+  if (refEl) refEl.textContent = refCode;
+  showNotification("Prenotazione salvata nel database!", "success");
+}
+
+function showNotification(msg, type) {
+  var div = document.createElement("div");
+  div.className = "notif " + (type||"info");
+  div.textContent = msg;
+  document.body.appendChild(div);
+  setTimeout(function(){
+    div.style.opacity = "0";
+    div.style.transform = "translateX(100%)";
+    div.style.transition = "all 0.3s ease";
+    setTimeout(function(){ document.body.removeChild(div); }, 300);
+  }, 3000);
+}
+
+function toggleAdmin() {
+  var ov = document.getElementById("adminOverlay");
+  if (ov.classList.contains("active")) {
+    ov.classList.remove("active");
+  } else {
+    ov.classList.add("active");
+    renderAdminStats();
+    renderBookingsTable(getDB());
+  }
+}
+
+function renderAdminStats() {
+  var bookings = getDB();
+  var confirmed = bookings.filter(function(b){return b.status==="confermata"}).length;
+  var pending = bookings.filter(function(b){return b.status==="in_attesa"}).length;
+  var cancelled = bookings.filter(function(b){return b.status==="cancellata"}).length;
+  var services = {};
+  bookings.forEach(function(b) {
+    var s = b.serviceName || b.service || "N/D";
+    services[s] = (services[s]||0) + 1;
+  });
+  var topService = "", topCount = 0;
+  Object.keys(services).forEach(function(k){ if(services[k]>topCount){topCount=services[k];topService=k;} });
+  var html = '<div class="stat-card"><div class="stat-num">' + bookings.length + '</div><div class="stat-label">Totale Prenotazioni</div></div>';
+  html += '<div class="stat-card"><div class="stat-num">' + confirmed + '</div><div class="stat-label">Confermate</div></div>';
+  html += '<div class="stat-card"><div class="stat-num">' + pending + '</div><div class="stat-label">In Attesa</div></div>';
+  html += '<div class="stat-card"><div class="stat-num">' + cancelled + '</div><div class="stat-label">Cancellate</div></div>';
+  if(topService) html += '<div class="stat-card"><div class="stat-num" style="font-size:1rem">' + topService + '</div><div class="stat-label">Servizio Richiesto</div></div>';
+  document.getElementById("adminStats").innerHTML = html;
+}
+
+function renderBookingsTable(bookings) {
+  var container = document.getElementById("bookingsTable");
+  if (!bookings.length) {
+    container.innerHTML = '<div class="empty-state"><span>&#128203;</span><p>Nessuna prenotazione nel database</p><p style="font-size:.85rem">Le prenotazioni appariranno qui dopo che i clienti le invieranno.</p></div>';
+    return;
+  }
+  var html = '<table class="booking-table"><thead><tr><th>Rif.</th><th>Nome</th><th>Servizio</th><th>Data</th><th>Orario</th><th>Email</th><th>Telefono</th><th>Stato</th><th>Azioni</th></tr></thead><tbody>';
+  var sorted = bookings.slice().sort(function(a,b){return new Date(b.createdAt)-new Date(a.createdAt)});
+  sorted.forEach(function(b) {
+    var statusClass = b.status==="confermata"?"confirmed":b.status==="in_attesa"?"pending":"cancelled";
+    var statusLabel = b.status==="confermata"?"Confermata":b.status==="in_attesa"?"In Attesa":"Cancellata";
+    html += "<tr>";
+    html += "<td><strong>" + (b.refCode||"N/D") + "</strong></td>";
+    html += "<td>" + (b.firstName||"") + " " + (b.lastName||"") + "</td>";
+    html += "<td>" + (b.serviceName||b.service||"N/D") + "</td>";
+    html += "<td>" + (b.date||"N/D") + "</td>";
+    html += "<td>" + (b.time||"N/D") + "</td>";
+    html += "<td>" + (b.email||"N/D") + "</td>";
+    html += "<td>" + (b.phone||"N/D") + "</td>";
+    html += '<td><span class="status-badge status-' + statusClass + '">' + statusLabel + "</span></td>";
+    html += '<td><button class="admin-btn secondary" style="padding:4px 8px;font-size:.75rem" onclick="changeStatus(\'' + b.id + '\')">&#9998;</button> ';
+    html += '<button class="admin-btn danger" style="padding:4px 8px;font-size:.75rem" onclick="deleteBooking(\'' + b.id + '\')">&#128465;</button></td>';
+    html += "</tr>";
+  });
+  html += "</tbody></table>";
+  container.innerHTML = html;
+}
+
+function changeStatus(id) {
+  var bookings = getDB();
+  var b = bookings.find(function(x){return x.id===id});
+  if (!b) return;
+  var states = ["confermata","in_attesa","cancellata"];
+  var idx = states.indexOf(b.status);
+  b.status = states[(idx+1)%3];
+  b.updatedAt = new Date().toISOString();
+  saveDB(bookings);
+  renderAdminStats();
+  renderBookingsTable(bookings);
+  showNotification("Stato aggiornato: " + b.status.replace("_"," "), "info");
+}
+
+function deleteBooking(id) {
+  if (!confirm("Sei sicuro di voler eliminare questa prenotazione?")) return;
+  var bookings = getDB().filter(function(b){return b.id!==id});
+  saveDB(bookings);
+  renderAdminStats();
+  renderBookingsTable(bookings);
+  showNotification("Prenotazione eliminata", "info");
+}
+
+function filterBookings(query) {
+  var bookings = getDB();
+  if (!query.trim()) { renderBookingsTable(bookings); return; }
+  var q = query.toLowerCase();
+  var filtered = bookings.filter(function(b) {
+    return (b.firstName+" "+b.lastName).toLowerCase().indexOf(q)!==-1
+      || (b.email||"").toLowerCase().indexOf(q)!==-1
+      || (b.serviceName||"").toLowerCase().indexOf(q)!==-1
+      || (b.refCode||"").toLowerCase().indexOf(q)!==-1
+      || (b.phone||"").indexOf(q)!==-1;
+  });
+  renderBookingsTable(filtered);
+}
+
+function exportDB() {
+  var bookings = getDB();
+  var archive = {
+    metadata: {
+      application: "Psicoritmica - Sistema Prenotazioni",
+      version: "1.0",
+      exportedAt: new Date().toISOString(),
+      owner: "Dott. Manfredi Culotta",
+      contact: "dottmanfrediculotta@gmail.com"
+    },
+    statistics: {
+      totalBookings: bookings.length,
+      confirmedBookings: bookings.filter(function(b){return b.status==="confermata"}).length,
+      pendingBookings: bookings.filter(function(b){return b.status==="in_attesa"}).length,
+      cancelledBookings: bookings.filter(function(b){return b.status==="cancellata"}).length
+    },
+    bookings: bookings,
+    exportHistory: [{date: new Date().toISOString(), type: "manual_export", recordCount: bookings.length}]
+  };
+  var blob = new Blob([JSON.stringify(archive, null, 2)], {type:"application/json"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "psicoritmica_archivio_" + new Date().toISOString().slice(0,10) + ".json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showNotification("Archivio JSON esportato con " + bookings.length + " prenotazioni", "success");
+}
+
+function exportCSV() {
+  var bookings = getDB();
+  if (!bookings.length) { showNotification("Nessuna prenotazione da esportare","error"); return; }
+  var headers = ["Riferimento","Nome","Cognome","Email","Telefono","Servizio","Data","Orario","Per Chi","Note","Stato","Data Creazione"];
+  var rows = bookings.map(function(b) {
+    return [b.refCode,b.firstName,b.lastName,b.email,b.phone,b.serviceName||b.service,b.date,b.time,b.forWho,'"'+(b.notes||"").replace(/"/g,'""')+'"',b.status,b.createdAt].join(",");
+  });
+  var csv = headers.join(",") + "\n" + rows.join("\n");
+  var blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "psicoritmica_prenotazioni_" + new Date().toISOString().slice(0,10) + ".csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showNotification("CSV esportato con " + bookings.length + " prenotazioni", "success");
+}
+
+function importDB(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      var importedBookings = [];
+      if (Array.isArray(data)) {
+        importedBookings = data;
+      } else if (data.bookings && Array.isArray(data.bookings)) {
+        importedBookings = data.bookings;
+      } else {
+        showNotification("Formato file non valido","error");
+        return;
+      }
+      var existing = getDB();
+      var existingIds = existing.map(function(b){return b.id});
+      var newOnes = importedBookings.filter(function(b){return existingIds.indexOf(b.id)===-1});
+      var merged = existing.concat(newOnes);
+      saveDB(merged);
+      renderAdminStats();
+      renderBookingsTable(merged);
+      showNotification("Importate " + newOnes.length + " nuove prenotazioni (totale: " + merged.length + ")", "success");
+    } catch(err) {
+      showNotification("Errore nella lettura del file: " + err.message, "error");
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = "";
+}
+
+function syncFromFile() {
+  var input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json";
+  input.onchange = function(e) { importDB(e); };
+  input.click();
+}
+
+function clearAllBookings() {
+  if (!confirm("ATTENZIONE: Questa azione cancellera tutte le prenotazioni dal database locale. Vuoi procedere?")) return;
+  if (!confirm("Ultima conferma: sei assolutamente sicuro? Questa azione non e reversibile.")) return;
+  localStorage.removeItem(DB_KEY);
+  localStorage.removeItem(DB_META_KEY);
+  renderAdminStats();
+  renderBookingsTable([]);
+  showNotification("Database svuotato", "info");
+}
+
+// Initialize - show booking count on page load
+(function(){
+  var count = getDB().length;
+  if (count > 0) {
+    var badge = document.createElement("span");
+    badge.style.cssText = "position:absolute;top:-5px;right:-5px;background:#e53e3e;color:#fff;border-radius:50%;width:20px;height:20px;font-size:.7rem;display:flex;align-items:center;justify-content:center;font-weight:700";
+    badge.textContent = count;
+    var btn = document.querySelector(".admin-toggle");
+    if(btn){btn.style.position="fixed";btn.appendChild(badge);}
+  }
+})();
 </script>
 </body>
 </html>
