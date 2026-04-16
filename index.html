@@ -458,5 +458,102 @@ function closeArticle(){document.getElementById("articleModal").classList.remove
 document.getElementById("articleModal").addEventListener("click",function(e){if(e.target===this)closeArticle()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape")closeArticle()});
 </script>
+
+
+<!-- PDF Download Button & Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+.download-fab{position:fixed;bottom:24px;right:24px;z-index:9999;background:linear-gradient(135deg,#1a365d,#2c5282);color:#fff;border:none;border-radius:50px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(26,54,93,.3);transition:all .3s;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif}
+.download-fab:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(26,54,93,.4)}
+.download-fab svg{width:20px;height:20px;fill:currentColor}
+.download-fab.loading{opacity:.7;pointer-events:none}
+@media print{.download-fab{display:none}}
+</style>
+<button class="download-fab" onclick="downloadPDF()" title="Scarica Proposta Progetto Scolastico PDF" aria-label="Scarica PDF">
+<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+Scarica PDF
+</button>
+<script>
+function downloadPDF(){
+var btn=document.querySelector('.download-fab');
+btn.classList.add('loading');
+btn.innerHTML='<svg viewBox="0 0 24 24" class="spin" style="animation:spin 1s linear infinite"><path d="M12 2a10 10 0 0 1 10 10h-3a7 7 0 0 0-7-7V2z"/></svg> Generando PDF...';
+var style=document.createElement('style');
+style.textContent='@keyframes spin{to{transform:rotate(360deg)}}';
+document.head.appendChild(style);
+var el=document.createElement('div');
+el.style.cssText='background:#fff;padding:40px;max-width:800px;font-family:Inter,sans-serif;color:#1a365d';
+el.innerHTML='<div style="text-align:center;padding:60px 40px;background:linear-gradient(135deg,#1a365d,#2c5282);color:#fff;border-radius:16px;margin-bottom:32px">'
++'<p style="background:rgba(255,255,255,.15);display:inline-block;padding:8px 24px;border-radius:30px;font-size:12px;letter-spacing:1px;margin-bottom:24px">Proposta Progetto Scolastico 2026</p>'
++'<h1 style="font-family:Playfair Display,serif;font-size:48px;font-weight:900;margin:16px 0"><span style="color:#d69e2e">Psico</span>ritmica</h1>'
++'<p style="font-size:18px;opacity:.9;margin-bottom:12px">Il Ritmo che trasforma. La terapia che connette.</p>'
++'<p style="font-size:13px;opacity:.8;max-width:480px;margin:0 auto 24px;line-height:1.6">Un approccio clinico innovativo che utilizza il ritmo, il movimento corporeo e l\'interazione di gruppo per promuovere lo sviluppo socio-emotivo, l\'inclusione e il benessere di bambini e adolescenti.</p>'
++'<div style="display:flex;justify-content:center;gap:40px;margin-top:20px">'
++'<div><div style="font-size:32px;font-weight:900;color:#d69e2e">4</div><div style="font-size:11px;opacity:.8">Assi Terapeutici</div></div>'
++'<div><div style="font-size:32px;font-weight:900;color:#d69e2e">16</div><div style="font-size:11px;opacity:.8">Attivita Protocollate</div></div>'
++'<div><div style="font-size:32px;font-weight:900;color:#d69e2e">32</div><div style="font-size:11px;opacity:.8">Indicatori Clinici</div></div></div>'
++'<div style="width:50px;height:2px;background:#d69e2e;margin:20px auto"></div>'
++'<p style="font-size:12px;opacity:.8;margin-top:16px">Dott. Manfredi Culotta<br>Psicologo — Specializzando in Psicoterapia della Gestalt (GTK Ragusa)<br>Centro Clinico di Palermo</p>'
++'</div>';
+el.innerHTML+='<div style="margin-bottom:32px"><h2 style="font-family:Playfair Display,serif;font-size:24px;color:#1a365d;margin-bottom:12px">Il Modello Psicoritmica</h2>'
++'<p style="font-size:13px;color:#4a5568;line-height:1.7;margin-bottom:16px">La Psicoritmica integra neuroscienze del ritmo, psicomotricita relazionale, teoria polivagale e psicologia dell\'attaccamento in un modello clinico innovativo per il benessere di bambini e adolescenti.</p>'
++'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;border-left:3px solid #d69e2e"><h4 style="font-size:13px;color:#1a365d;margin-bottom:4px">Neuroscienze del Ritmo</h4><p style="font-size:11px;color:#718096;line-height:1.4">La sincronizzazione ritmica attiva circuiti cerebrali legati all\'attenzione e alla regolazione emotiva</p></div>'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;border-left:3px solid #d69e2e"><h4 style="font-size:13px;color:#1a365d;margin-bottom:4px">Psicomotricita Relazionale</h4><p style="font-size:11px;color:#718096;line-height:1.4">Il movimento corporeo come strumento di espressione e costruzione della relazione</p></div>'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;border-left:3px solid #d69e2e"><h4 style="font-size:13px;color:#1a365d;margin-bottom:4px">Teoria Polivagale</h4><p style="font-size:11px;color:#718096;line-height:1.4">Il sistema nervoso autonomo nella risposta alla stimolazione ritmica</p></div>'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;border-left:3px solid #d69e2e"><h4 style="font-size:13px;color:#1a365d;margin-bottom:4px">Psicologia dell\'Attaccamento</h4><p style="font-size:11px;color:#718096;line-height:1.4">La sintonizzazione ritmica come base sicura per lo sviluppo socio-emotivo</p></div>'
++'</div>'
++'<h3 style="font-size:16px;color:#1a365d;margin:20px 0 12px">I 4 Assi Terapeutici</h3>'
++'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">'
++'<div style="text-align:center;background:#f7fafc;padding:14px 8px;border-radius:10px"><div style="font-size:24px;font-weight:900;color:#d69e2e">1</div><div style="font-size:11px;color:#4a5568">Regolazione</div></div>'
++'<div style="text-align:center;background:#f7fafc;padding:14px 8px;border-radius:10px"><div style="font-size:24px;font-weight:900;color:#d69e2e">2</div><div style="font-size:11px;color:#4a5568">Relazione</div></div>'
++'<div style="text-align:center;background:#f7fafc;padding:14px 8px;border-radius:10px"><div style="font-size:24px;font-weight:900;color:#d69e2e">3</div><div style="font-size:11px;color:#4a5568">Espressione</div></div>'
++'<div style="text-align:center;background:#f7fafc;padding:14px 8px;border-radius:10px"><div style="font-size:24px;font-weight:900;color:#d69e2e">4</div><div style="font-size:11px;color:#4a5568">Inclusione</div></div>'
++'</div></div>';
+el.innerHTML+='<div style="margin-bottom:32px"><h2 style="font-family:Playfair Display,serif;font-size:24px;color:#1a365d;margin-bottom:12px">Il Progetto Scolastico</h2>'
++'<p style="font-size:13px;color:#4a5568;line-height:1.7;margin-bottom:16px">La Psicoritmica nelle scuole porta il ritmo condiviso come strumento di inclusione, regolazione emotiva e apprendimento cooperativo.</p>'
++'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;text-align:center"><div style="font-size:24px;margin-bottom:6px">🎯</div><h4 style="font-size:12px;color:#1a365d;margin-bottom:4px">Attenzione</h4><p style="font-size:10px;color:#718096">Migliora la concentrazione collettiva</p></div>'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;text-align:center"><div style="font-size:24px;margin-bottom:6px">💚</div><h4 style="font-size:12px;color:#1a365d;margin-bottom:4px">Regolazione</h4><p style="font-size:10px;color:#718096">Gestione delle emozioni e dei conflitti</p></div>'
++'<div style="background:#f7fafc;padding:14px;border-radius:10px;text-align:center"><div style="font-size:24px;margin-bottom:6px">🤝</div><h4 style="font-size:12px;color:#1a365d;margin-bottom:4px">Inclusione</h4><p style="font-size:10px;color:#718096">Linguaggio universale per tutti</p></div>'
++'</div>'
++'<h3 style="font-size:14px;color:#1a365d;margin-bottom:10px">A chi si rivolge</h3>'
++'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'
++'<div style="background:#f7fafc;padding:12px;border-radius:10px"><h4 style="font-size:12px;color:#1a365d">Scuola dell\'Infanzia</h4><p style="font-size:10px;color:#718096">3-5 anni — giochi ritmici sensoriali</p></div>'
++'<div style="background:#f7fafc;padding:12px;border-radius:10px"><h4 style="font-size:12px;color:#1a365d">Scuola Primaria</h4><p style="font-size:10px;color:#718096">6-10 anni — laboratori ritmici di gruppo</p></div>'
++'<div style="background:#f7fafc;padding:12px;border-radius:10px"><h4 style="font-size:12px;color:#1a365d">Secondaria I grado</h4><p style="font-size:10px;color:#718096">11-13 anni — ritmo ed espressione</p></div>'
++'<div style="background:#f7fafc;padding:12px;border-radius:10px"><h4 style="font-size:12px;color:#1a365d">Secondaria II grado</h4><p style="font-size:10px;color:#718096">14-18 anni — RAP terapeutico</p></div>'
++'</div></div>';
+el.innerHTML+='<div style="margin-bottom:32px"><h2 style="font-family:Playfair Display,serif;font-size:24px;color:#1a365d;margin-bottom:12px">Formazione Docenti</h2>'
++'<div style="background:#f7fafc;padding:16px;border-radius:10px;margin-bottom:10px"><h4 style="font-size:14px;color:#1a365d;margin-bottom:4px">Modulo 1 — Base</h4><p style="font-size:11px;color:#718096;margin-bottom:6px">12 ore · Max 25 docenti · Attestato ECM</p><ul style="font-size:11px;color:#4a5568;padding-left:16px;line-height:1.6"><li>Basi neuroscientifiche del ritmo</li><li>I 4 Assi della Psicoritmica</li><li>Osservazione ritmica in classe</li><li>Laboratorio pratico: 5 attivita</li></ul></div>'
++'<div style="background:#f7fafc;padding:16px;border-radius:10px;margin-bottom:10px"><h4 style="font-size:14px;color:#1a365d;margin-bottom:4px">Modulo 2 — Intermedio</h4><p style="font-size:11px;color:#718096;margin-bottom:6px">16 ore · Max 20 docenti · Pratico</p><ul style="font-size:11px;color:#4a5568;padding-left:16px;line-height:1.6"><li>Regolazione emotiva attraverso il ritmo</li><li>Protocolli per gestione conflitti</li><li>Sincronizzazione e attenzione collettiva</li></ul></div>'
++'<div style="background:#f7fafc;padding:16px;border-radius:10px"><h4 style="font-size:14px;color:#1a365d;margin-bottom:4px">Modulo 3 — Avanzato</h4><p style="font-size:11px;color:#718096;margin-bottom:6px">20 ore · Max 15 docenti · Avanzato</p><ul style="font-size:11px;color:#4a5568;padding-left:16px;line-height:1.6"><li>Neurodiversita: DSA, ADHD, autismo</li><li>PDP ritmico e piano didattico</li><li>Supervisione casi e laboratorio</li></ul></div></div>';
+el.innerHTML+='<div style="background:linear-gradient(135deg,#1a365d,#2c5282);color:#fff;border-radius:16px;padding:32px;text-align:center">'
++'<h2 style="font-family:Playfair Display,serif;font-size:22px;margin-bottom:12px">Costruiamo insieme il progetto</h2>'
++'<p style="font-size:13px;opacity:.9;line-height:1.6;margin-bottom:16px">Ogni scuola e unica. Proponiamo un incontro conoscitivo per ascoltare le vostre esigenze e costruire un progetto su misura.</p>'
++'<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">'
++'<div style="background:rgba(255,255,255,.1);padding:14px;border-radius:10px"><div style="font-size:20px;margin-bottom:6px">📧</div><h4 style="font-size:12px">Email</h4><p style="font-size:11px;opacity:.8">dottmanfrediculotta@gmail.com</p></div>'
++'<div style="background:rgba(255,255,255,.1);padding:14px;border-radius:10px"><div style="font-size:20px;margin-bottom:6px">📍</div><h4 style="font-size:12px">Sede</h4><p style="font-size:11px;opacity:.8">Centro Clinico di Palermo</p></div>'
++'</div>'
++'<p style="font-style:italic;font-size:13px;opacity:.9;margin-top:16px">"Il ritmo condiviso e uno strumento potente di inclusione e benessere."</p>'
++'<p style="font-size:11px;opacity:.7;margin-top:8px">— Dott. Manfredi Culotta</p>'
++'</div>';
+el.innerHTML+='<div style="text-align:center;margin-top:24px;padding:16px;font-size:11px;color:#718096">'
++'<strong>Psicoritmica</strong> — Dott. Manfredi Culotta<br>Psicologo · Specializzando in Psicoterapia della Gestalt (GTK Ragusa)<br>Centro Clinico di Palermo · dottmanfrediculotta@gmail.com</div>';
+document.body.appendChild(el);
+el.style.display='block';
+var opt={margin:[10,10,10,10],filename:'Proposta_Progetto_Scolastico_2026_Psicoritmica.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}};
+html2pdf().set(opt).from(el).save().then(function(){
+document.body.removeChild(el);
+btn.classList.remove('loading');
+btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Scarica PDF';
+}).catch(function(err){
+document.body.removeChild(el);
+btn.classList.remove('loading');
+btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> Scarica PDF';
+alert('Errore nella generazione del PDF. Riprova.');
+});
+}
+</script>
 </body>
 </html>
