@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Catalogo Servizi - Psicoritmica | Dott. Manfredi Culotta</title>
+<meta name="description" content="Catalogo completo dei servizi di Psicoritmica: ritmica divulgativa, diagnostica e clinica terapeutica per scuole, famiglie, associazioni e singoli.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--p:#1a365d;--pl:#2c5282;--a:#d69e2e;--bg:#0f172a;--card:rgba(255,255,255,0.05);--text:#e2e8f0;--muted:#94a3b8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--a);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+nav{background:rgba(15,23,42,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);padding:0.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:800}
+.nav-logo span{display:block;font-family:'Inter',sans-serif;font-size:0.65rem;color:var(--muted);font-weight:400;letter-spacing:2px;text-transform:uppercase}
+.nav-links{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--muted);font-size:0.85rem;font-weight:500;transition:color 0.3s}
+.nav-links a:hover{color:#fff;text-decoration:none}
+.nav-links .btn-nav{background:var(--a);color:var(--p);padding:0.45rem 1.1rem;border-radius:8px;font-weight:600;font-size:0.82rem}
+.nav-links .btn-nav:hover{background:#e6b04a}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--p) 0%,var(--pl) 50%,#2d3748 100%);padding:4rem 2rem 3rem;text-align:center}
+.hero h1{font-family:'Playfair Display',serif;font-size:2.8rem;color:#fff;margin-bottom:0.5rem}
+.hero h1 em{color:var(--a);font-style:normal}
+.hero p{color:rgba(255,255,255,0.8);font-size:1.1rem;max-width:700px;margin:0 auto 1.5rem}
+.hero-badges{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+.hero-badge{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:0.6rem 1.2rem;font-size:0.85rem;color:rgba(255,255,255,0.9)}
+.hero-badge strong{color:var(--a)}
+
+/* FILTER */
+.filter-bar{background:rgba(15,23,42,0.8);border-bottom:1px solid rgba(255,255,255,0.06);padding:1rem 2rem;display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;position:sticky;top:56px;z-index:90;backdrop-filter:blur(8px)}
+.filter-btn{background:var(--card);border:1px solid rgba(255,255,255,0.1);color:var(--muted);padding:0.5rem 1rem;border-radius:20px;cursor:pointer;font-size:0.82rem;font-family:'Inter',sans-serif;transition:all 0.3s}
+.filter-btn:hover,.filter-btn.active{background:var(--a);color:var(--p);border-color:var(--a);font-weight:600}
+
+/* SECTIONS */
+.catalog-section{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 1rem}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.section-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.section-header h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff}
+.section-header p{color:var(--muted);font-size:0.9rem;margin-top:0.2rem}
+.cat-divulgativa .section-icon{background:rgba(72,187,120,0.15);color:#48bb78}
+.cat-diagnostica .section-icon{background:rgba(99,179,237,0.15);color:#63b3ed}
+.cat-clinica .section-icon{background:rgba(237,137,54,0.15);color:#ed8936}
+
+/* TARGET LABEL */
+.target-label{font-size:0.95rem;font-weight:700;color:var(--a);margin:2rem 0 1rem;padding-bottom:0.4rem;border-bottom:2px solid rgba(214,158,46,0.3);display:inline-block}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;margin-bottom:1.5rem}
+.service-card{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.4rem;transition:all 0.3s;position:relative;overflow:hidden}
+.service-card:hover{border-color:rgba(214,158,46,0.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px}
+.cat-divulgativa .service-card::before{background:#48bb78}
+.cat-diagnostica .service-card::before{background:#63b3ed}
+.cat-clinica .service-card::before{background:#ed8936}
+.card-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.3rem}
+.card-target{font-size:0.75rem;color:var(--a);font-weight:500;margin-bottom:0.6rem}
+.card-desc{font-size:0.82rem;color:var(--muted);line-height:1.5;margin-bottom:1rem}
+.card-price{display:inline-block;background:var(--p);border:1px solid rgba(214,158,46,0.4);color:var(--a);padding:0.4rem 0.9rem;border-radius:8px;font-size:0.9rem;font-weight:700}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--p),var(--pl));padding:3rem 2rem;text-align:center;margin-top:2rem}
+.cta-section h2{font-family:'Playfair Display',serif;color:#fff;font-size:1.8rem;margin-bottom:0.8rem}
+.cta-section p{color:rgba(255,255,255,0.8);margin-bottom:1.5rem;max-width:600px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-cta{padding:0.8rem 1.8rem;border-radius:10px;font-weight:700;font-size:0.95rem;border:none;cursor:pointer;transition:all 0.3s;font-family:'Inter',sans-serif;text-decoration:none}
+.btn-primary{background:var(--a);color:var(--p)}
+.btn-primary:hover{background:#e6b04a;text-decoration:none}
+.btn-secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.3)}
+.btn-secondary:hover{border-color:#fff;text-decoration:none}
+
+/* NOTE */
+.notes-section{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.note-card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.2rem;font-size:0.82rem;color:var(--muted)}
+.note-card strong{color:var(--text)}
+
+/* FOOTER */
+footer{background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.06);padding:1.5rem 2rem;text-align:center;color:var(--muted);font-size:0.8rem}
+
+/* PDF BUTTON */
+.pdf-float{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--a);color:var(--p);border:none;padding:0.8rem 1.4rem;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(214,158,46,0.4);display:flex;align-items:center;gap:0.5rem;transition:all 0.3s}
+.pdf-float:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(214,158,46,0.5)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:2rem}
+  .nav-links{gap:0.8rem}
+  .cards-grid{grid-template-columns:1fr}
+  .filter-bar{padding:0.8rem 1rem}
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Psicoritmica<span>Dott. Manfredi Culotta</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#chi-sono">Chi Sono</a>
+    <a href="index.html#blog">Blog</a>
+    <a href="catalogo.html" style="color:#fff">Catalogo</a>
+    <a href="index.html#insegnanti">Insegnanti</a>
+    <a href="index.html#genitori">Genitori</a>
+    <a href="booking.html" class="btn-nav">📅 Prenota</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Catalogo <em>Servizi</em></h1>
+  <p>Tutti i servizi di Psicoritmica organizzati per categoria e destinatario. Laboratori, valutazioni, percorsi terapeutici e formazione.</p>
+  <div class="hero-badges">
+    <div class="hero-badge"><strong>3</strong> Categorie</div>
+    <div class="hero-badge"><strong>27</strong> Servizi</div>
+    <div class="hero-badge"><strong>5</strong> Destinatari</div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterCards('all')">Tutti</button>
+  <button class="filter-btn" onclick="filterCards('divulgativa')">Divulgativa</button>
+  <button class="filter-btn" onclick="filterCards('diagnostica')">Diagnostica</button>
+  <button class="filter-btn" onclick="filterCards('clinica')">Clinica</button>
+  <button class="filter-btn" onclick="filterCards('scuole')">🏫 Scuole</button>
+  <button class="filter-btn" onclick="filterCards('associazioni')">🤝 Associazioni</button>
+  <button class="filter-btn" onclick="filterCards('insegnanti')">👩‍🏫 Insegnanti</button>
+  <button class="filter-btn" onclick="filterCards('famiglie')">👨‍👩‍👧 Famiglie</button>
+  <button class="filter-btn" onclick="filterCards('singoli')">👤 Singoli</button>
+</div>
+
+<main>
+
+<!-- ===================== RITMICA DIVULGATIVA ===================== -->
+<section class="catalog-section cat-divulgativa" data-cat="divulgativa">
+  <div class="section-header">
+    <div class="section-icon">🎶</div>
+    <div>
+      <h2>Ritmica Divulgativa e Didattica</h2>
+      <p>Laboratori, workshop e formazione per la diffusione della pratica psicoritmica</p>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="scuole">🏫 Scuole</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Laboratorio Espressivo-Ritmico</div>
+      <div class="card-target">Scuole di ogni ordine e grado</div>
+      <div class="card-desc">Ciclo di 8-12 incontri settimanali di 1h. Esplorazione del ritmo corporeo, coordinazione, espressione creativa attraverso percussioni e movimento.</div>
+      <div class="card-price">€ 800 - 1.200</div>
+    </div>
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Progetto Annuale Curricolare</div>
+      <div class="card-target">Scuole primarie e secondarie</div>
+      <div class="card-desc">Programma integrato nel curriculum scolastico. 30 incontri annuali con valutazione iniziale, intermedia e finale. Report per ogni alunno.</div>
+      <div class="card-price">€ 3.500 - 5.000</div>
+    </div>
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Giornata di Sensibilizzazione</div>
+      <div class="card-target">Istituti comprensivi</div>
+      <div class="card-desc">Evento di una giornata con laboratori dimostrativi, presentazione ai docenti e materiale informativo per le famiglie.</div>
+      <div class="card-price">€ 350 - 500</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="associazioni">🤝 Associazioni</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="associazioni">
+      <div class="card-title">Workshop Introduttivo</div>
+      <div class="card-target">Associazioni culturali e sportive</div>
+      <div class="card-desc">Incontro di 3-4 ore. Introduzione alla psicoritmica: principi teorici, esperienze pratiche, ambiti di applicazione.</div>
+      <div class="card-price">€ 400 - 600</div>
+    </div>
+    <div class="service-card" data-target="associazioni">
+      <div class="card-title">Ciclo di Incontri Esperienziali</div>
+      <div class="card-target">Associazioni e cooperative sociali</div>
+      <div class="card-desc">Percorso di 6-10 incontri di 1.5h ciascuno. Pratica ritmica applicata al benessere di gruppo e alla coesione sociale.</div>
+      <div class="card-price">€ 600 - 1.000</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="insegnanti">👩‍🏫 Insegnanti</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="insegnanti">
+      <div class="card-title">Modulo 1 — Fondamenti di Psicoritmica</div>
+      <div class="card-target">Docenti e operatori educativi</div>
+      <div class="card-desc">Corso di 12 ore (4 incontri da 3h). Basi teoriche, osservazione ritmica in classe, strumenti di base per attività ritmiche.</div>
+      <div class="card-price">€ 180</div>
+    </div>
+    <div class="service-card" data-target="insegnanti">
+      <div class="card-title">Modulo 2 — Ritmica e Apprendimento</div>
+      <div class="card-target">Docenti curricolari e di sostegno</div>
+      <div class="card-desc">Corso di 16 ore (4 incontri da 4h). Ritmo e funzioni cognitive, strategie ritmiche per DSA e BES, progettazione inclusiva.</div>
+      <div class="card-price">€ 240</div>
+    </div>
+    <div class="service-card" data-target="insegnanti">
+      <div class="card-title">Modulo 3 — Pratica Avanzata</div>
+      <div class="card-target">Docenti con formazione base</div>
+      <div class="card-desc">Corso di 20 ore (5 incontri da 4h). Conduzione autonoma di laboratori, supervisione, costruzione di percorsi personalizzati.</div>
+      <div class="card-price">€ 320</div>
+    </div>
+    <div class="service-card" data-target="insegnanti">
+      <div class="card-title">Pacchetto Completo (Mod. 1+2+3)</div>
+      <div class="card-target">Docenti e operatori</div>
+      <div class="card-desc">Percorso formativo integrale di 48 ore. Certificato di completamento. Accesso a materiali didattici e community online.</div>
+      <div class="card-price">€ 650</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="famiglie">👨‍👩‍👧 Famiglie</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Laboratorio Famiglia</div>
+      <div class="card-target">Nuclei familiari con bambini 3-12 anni</div>
+      <div class="card-desc">Ciclo di 8 incontri di 1h. Attività ritmiche genitore-figlio, rafforzamento del legame, comunicazione non verbale.</div>
+      <div class="card-price">€ 320</div>
+    </div>
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Evento Ritmico Aperto</div>
+      <div class="card-target">Famiglie e comunità</div>
+      <div class="card-desc">Evento singolo di 2 ore. Esperienza collettiva aperta, giochi ritmici, percussioni dal mondo. Adatto a tutte le età.</div>
+      <div class="card-price">€ 30/persona</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RITMICA DIAGNOSTICA ===================== -->
+<section class="catalog-section cat-diagnostica" data-cat="diagnostica">
+  <div class="section-header">
+    <div class="section-icon">🔍</div>
+    <div>
+      <h2>Ritmica Diagnostica</h2>
+      <p>Screening, valutazioni e profili ritmici per identificare bisogni specifici</p>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="scuole">🏫 Scuole</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Screening GOP-S</div>
+      <div class="card-target">Classi scolastiche (max 25 alunni)</div>
+      <div class="card-desc">Gruppo Osservazione Psicoritmica Scolastica. Osservazione strutturata su competenze ritmiche, coordinazione, attenzione e regolazione. Report di classe con indicazioni per ogni alunno.</div>
+      <div class="card-price">€ 450/classe</div>
+    </div>
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Assessment Ritmico BES</div>
+      <div class="card-target">Alunni con Bisogni Educativi Speciali</div>
+      <div class="card-desc">Valutazione individuale approfondita di 2 sedute. Profilo ritmico dettagliato, indicazioni operative per il PDP/PEI.</div>
+      <div class="card-price">€ 280/alunno</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="singoli">👤 Singoli</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Valutazione Psicoritmica Individuale</div>
+      <div class="card-target">Bambini, adolescenti e adulti</div>
+      <div class="card-desc">Sessione singola di 60 minuti. Analisi del profilo ritmico personale: coordinazione, timing, espressività, autoregolazione.</div>
+      <div class="card-price">€ 200</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Profilo Ritmico Completo</div>
+      <div class="card-target">Bambini e adolescenti (6-17 anni)</div>
+      <div class="card-desc">3 sedute di valutazione + 1 colloquio restituzione. Batteria completa di test ritmici, relazione scritta, indicazioni terapeutiche.</div>
+      <div class="card-price">€ 350</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="famiglie">👨‍👩‍👧 Famiglie</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Osservazione Dinamica Familiare</div>
+      <div class="card-target">Nuclei familiari</div>
+      <div class="card-desc">Seduta di 75 min. Osservazione delle dinamiche ritmiche familiari: sintonizzazione, turn-taking, co-regolazione. Restituzione e indicazioni.</div>
+      <div class="card-price">€ 250</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RITMICA CLINICA ===================== -->
+<section class="catalog-section cat-clinica" data-cat="clinica">
+  <div class="section-header">
+    <div class="section-icon">🩺</div>
+    <div>
+      <h2>Ritmica Clinica e Terapeutica</h2>
+      <p>Percorsi terapeutici individuali, di gruppo e familiari</p>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="singoli">👤 Singoli</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Consulenza Individuale</div>
+      <div class="card-target">Bambini, adolescenti e adulti</div>
+      <div class="card-desc">Sedute settimanali di 50 min. Percorso personalizzato di psicoritmica clinica. Prima seduta conoscitiva a tariffa ridotta.</div>
+      <div class="card-price">€ 60/sed. (1° €50)</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Terapia di Gruppo</div>
+      <div class="card-target">Gruppi omogenei (4-8 partecipanti)</div>
+      <div class="card-desc">Sedute settimanali di 75 min. Percorsi tematici: regolazione emotiva, competenze sociali, espressione corporea.</div>
+      <div class="card-price">€ 40/seduta</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Ciclo Terapeutico di Gruppo</div>
+      <div class="card-target">Gruppi omogenei</div>
+      <div class="card-desc">Pacchetto completo di 10 sedute di gruppo con valutazione iniziale e finale. Percorso strutturato con obiettivi definiti.</div>
+      <div class="card-price">€ 430</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Percorso ADHD e Disregolazione</div>
+      <div class="card-target">Bambini e adolescenti con ADHD</div>
+      <div class="card-desc">Protocollo specifico di 12-16 sedute individuali. Tecniche ritmiche per attenzione sostenuta, inibizione e pianificazione motoria.</div>
+      <div class="card-price">€ 55/seduta</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">Percorso Regolazione Emotiva</div>
+      <div class="card-target">Bambini e adolescenti (6-17 anni)</div>
+      <div class="card-desc">Ciclo di 10-12 sedute individuali. Lavoro su riconoscimento, espressione e gestione delle emozioni attraverso il ritmo.</div>
+      <div class="card-price">€ 60/seduta</div>
+    </div>
+    <div class="service-card" data-target="singoli">
+      <div class="card-title">RAP Terapeutico (Ritmo-Arte-Parola)</div>
+      <div class="card-target">Adolescenti e adulti</div>
+      <div class="card-desc">Percorso integrato di 10 sedute che combina percussione, espressione artistica e narrazione. Ciclo completo.</div>
+      <div class="card-price">€ 40/sed. (ciclo €360)</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="scuole">🏫 Scuole</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Sportello Psicoritmico Scolastico</div>
+      <div class="card-target">Istituti scolastici</div>
+      <div class="card-desc">Presenza settimanale in istituto: consulenze individuali, osservazioni in classe, colloqui con docenti e genitori.</div>
+      <div class="card-price">€ 200/giornata</div>
+    </div>
+    <div class="service-card" data-target="scuole">
+      <div class="card-title">Gruppo Terapeutico Scolastico</div>
+      <div class="card-target">Classi con bisogni specifici</div>
+      <div class="card-desc">Ciclo di 12 sedute di gruppo in orario scolastico. Coordinamento con equipe didattica. Relazione finale.</div>
+      <div class="card-price">€ 1.200/ciclo</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="famiglie">👨‍👩‍👧 Famiglie</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Supporto alla Co-Genitorialità</div>
+      <div class="card-target">Coppie genitoriali</div>
+      <div class="card-desc">Sedute di 60 min per coppia. Lavoro sulla sintonizzazione genitoriale attraverso attività ritmiche condivise.</div>
+      <div class="card-price">€ 80/coppia</div>
+    </div>
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Pacchetto Co-Genitorialità (6 sedute)</div>
+      <div class="card-target">Coppie genitoriali</div>
+      <div class="card-desc">Percorso strutturato di 6 incontri con obiettivi progressivi. Valutazione iniziale e finale della sintonizzazione.</div>
+      <div class="card-price">€ 430</div>
+    </div>
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Mediazione Ritmica Post-Separazione</div>
+      <div class="card-target">Genitori separati e figli</div>
+      <div class="card-desc">Percorso di accompagnamento. Sedute individuali e congiunte per ristabilire la comunicazione attraverso il ritmo.</div>
+      <div class="card-price">€ 70-90/sed.</div>
+    </div>
+    <div class="service-card" data-target="famiglie">
+      <div class="card-title">Terapia Familiare Ritmica</div>
+      <div class="card-target">Nucleo familiare (max 5 componenti)</div>
+      <div class="card-desc">Sedute di 75 min. Lavoro sulle dinamiche familiari attraverso il ritmo: comunicazione, ruoli, confini, appartenenza.</div>
+      <div class="card-price">€ 90/seduta</div>
+    </div>
+  </div>
+
+  <div class="target-label" data-target="associazioni">🤝 Associazioni</div>
+  <div class="cards-grid">
+    <div class="service-card" data-target="associazioni">
+      <div class="card-title">Supervisione Operatori</div>
+      <div class="card-target">Equipe di associazioni e cooperative</div>
+      <div class="card-desc">Incontri mensili di 2h. Supervisione ritmica per operatori che lavorano con utenza fragile. Analisi casi e strategie.</div>
+      <div class="card-price">€ 150/incontro</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- NOTES -->
+<section class="notes-section">
+  <div class="notes-grid">
+    <div class="note-card"><strong>Prezzi orientativi:</strong> I prezzi indicati possono variare in base alle specifiche esigenze del committente.</div>
+    <div class="note-card"><strong>Preventivi personalizzati:</strong> Per scuole e associazioni è possibile richiedere progetti su misura.</div>
+    <div class="note-card"><strong>Pacchetti multi-seduta:</strong> Includono uno sconto rispetto alla tariffa singola.</div>
+    <div class="note-card"><strong>Prima consulenza:</strong> Sempre a tariffa agevolata (€ 50 anziché € 60).</div>
+    <div class="note-card"><strong>Colloquio preliminare:</strong> Tutti i percorsi prevedono un colloquio conoscitivo gratuito.</div>
+    <div class="note-card"><strong>Prenotazione online:</strong> <a href="booking.html">Prenota direttamente dal sito</a> in modo semplice e veloce.</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Pronto a iniziare?</h2>
+  <p>Prenota un colloquio conoscitivo gratuito o scarica il catalogo completo in formato PDF.</p>
+  <div class="cta-buttons">
+    <a href="booking.html" class="btn-cta btn-primary">📅 Prenota una Sessione</a>
+    <button class="btn-cta btn-secondary" onclick="generatePDF()">⬇ Scarica Catalogo PDF</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Psicoritmica — Dott. Manfredi Culotta — Centro Clinico di Palermo — <a href="mailto:dottmanfrediculotta@gmail.com">dottmanfrediculotta@gmail.com</a></p>
+</footer>
+
+<!-- PDF FLOAT BUTTON -->
+<button class="pdf-float" onclick="generatePDF()">⬇ Scarica PDF</button>
+
+<script>
+// FILTER FUNCTIONALITY
+function filterCards(type) {
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  event.target.classList.add('active');
+
+  var sections = document.querySelectorAll('.catalog-section');
+  var labels = document.querySelectorAll('.target-label');
+  var cards = document.querySelectorAll('.service-card');
+  var grids = document.querySelectorAll('.cards-grid');
+
+  if(type === 'all') {
+    sections.forEach(function(s){ s.style.display = ''; });
+    labels.forEach(function(l){ l.style.display = ''; });
+    cards.forEach(function(c){ c.style.display = ''; });
+    grids.forEach(function(g){ g.style.display = ''; });
+    return;
+  }
+
+  var isCat = ['divulgativa','diagnostica','clinica'].indexOf(type) !== -1;
+
+  if(isCat) {
+    sections.forEach(function(s){
+      s.style.display = s.dataset.cat === type ? '' : 'none';
+    });
+    // Show all within the visible section
+    labels.forEach(function(l){ l.style.display = ''; });
+    cards.forEach(function(c){ c.style.display = ''; });
+    grids.forEach(function(g){ g.style.display = ''; });
+  } else {
+    // Target filter
+    sections.forEach(function(s){ s.style.display = ''; });
+    labels.forEach(function(l){
+      var show = l.dataset.target === type;
+      l.style.display = show ? '' : 'none';
+      // Hide/show the next grid
+      var next = l.nextElementSibling;
+      if(next && next.classList.contains('cards-grid')) {
+        next.style.display = show ? '' : 'none';
+      }
+    });
+    cards.forEach(function(c){
+      c.style.display = c.dataset.target === type ? '' : 'none';
+    });
+    // Hide sections with no visible cards
+    sections.forEach(function(s){
+      var visibleCards = s.querySelectorAll('.service-card[data-target="'+type+'"]');
+      s.style.display = visibleCards.length > 0 ? '' : 'none';
+    });
+  }
+}
+
+// PDF GENERATION
+function generatePDF() {
+  var btn = document.querySelector('.pdf-float');
+  btn.textContent = 'Generazione in corso...';
+  btn.disabled = true;
+
+  var jsPDF2 = window.jspdf.jsPDF;
+  var doc = new jsPDF2({orientation:'portrait',unit:'mm',format:'a4'});
+  var W=210, H=297, M=15, CW=W-2*M;
+  var BLUE=[26,54,93], LBLUE=[44,82,130], GOLD=[214,158,46];
+  var WHITE=[255,255,255], GRAY=[100,100,100], LGRAY=[240,240,240], DGRAY=[60,60,60];
+
+  function r(x,y,w,h,c){doc.setFillColor(c[0],c[1],c[2]);doc.rect(x,y,w,h,'F');}
+  function tc(c){doc.setTextColor(c[0],c[1],c[2]);}
+  function ct(t,y,s,c,st){doc.setFontSize(s);tc(c);if(st)doc.setFont('helvetica',st);doc.text(t,W/2,y,{align:'center'});}
+  function lt(t,x,y,s,c,st){doc.setFontSize(s);tc(c);if(st)doc.setFont('helvetica',st);doc.text(t,x,y);}
+  function gl(y){doc.setDrawColor(214,158,46);doc.setLineWidth(0.8);doc.line(M,y,W-M,y);}
+  function ph(ti,su){r(0,0,W,40,BLUE);r(0,40,W,3,GOLD);ct(ti,20,18,WHITE,'bold');if(su)ct(su,32,11,GOLD,'normal');return 55;}
+  function sc(y,n,d,de,p){
+    if(y>248){doc.addPage();y=ph('(continua)','');}
+    r(M,y,CW,32,LGRAY);r(M,y,3,32,GOLD);
+    lt(n,M+7,y+8,11,BLUE,'bold');
+    lt('Destinatari: '+d,M+7,y+15,8,GRAY,'italic');
+    doc.setFontSize(8);tc(DGRAY);doc.setFont('helvetica','normal');
+    var lines=doc.splitTextToSize(de,CW-55);doc.text(lines,M+7,y+22);
+    r(W-M-40,y+4,37,14,BLUE);doc.setFontSize(10);tc(WHITE);doc.setFont('helvetica','bold');
+    doc.text(p,W-M-21.5,y+13,{align:'center'});
+    return y+36;
+  }
+
+  // PAGE 1: COVER
+  r(0,0,W,H,BLUE);r(0,100,W,4,GOLD);
+  ct('PSICORITMICA',75,36,WHITE,'bold');
+  ct('Dott. Manfredi Culotta',90,14,GOLD,'normal');
+  ct('CATALOGO DEI SERVIZI',130,22,WHITE,'bold');
+  ct('Anno 2026',145,14,GOLD,'normal');
+  ct('Centro Clinico di Palermo',250,11,WHITE,'normal');
+  ct('dottmanfrediculotta@gmail.com',258,10,WHITE,'normal');
+
+  // PAGE 2: INDEX
+  doc.addPage();var y=ph('INDICE DEI SERVIZI','Panoramica delle categorie e dei destinatari');
+  lt('CATEGORIE DI SERVIZIO',M,y,13,BLUE,'bold');y+=8;gl(y);y+=10;
+  [['1. RITMICA DIVULGATIVA E DIDATTICA','Laboratori, workshop e formazione'],
+   ['2. RITMICA DIAGNOSTICA','Screening, valutazioni e profili ritmici'],
+   ['3. RITMICA CLINICA E TERAPEUTICA','Percorsi terapeutici individuali, di gruppo e familiari']
+  ].forEach(function(c){lt(c[0],M+3,y,11,LBLUE,'bold');y+=6;lt(c[1],M+6,y,9,GRAY,'normal');y+=12;});
+  y+=8;lt('DESTINATARI',M,y,13,BLUE,'bold');y+=8;gl(y);y+=10;
+  ['Scuole','Associazioni','Insegnanti','Famiglie','Singoli'].forEach(function(d){
+    r(M+3,y-4,3,3,GOLD);lt(d,M+10,y,10,DGRAY,'normal');y+=9;});
+
+  // PAGE 3: DIVULGATIVA SCUOLE+ASSOCIAZIONI
+  doc.addPage();y=ph('RITMICA DIVULGATIVA E DIDATTICA','Scuole e Associazioni');
+  lt('SCUOLE',M,y,12,BLUE,'bold');r(M,y+2,25,0.8,GOLD);y+=10;
+  y=sc(y,'Laboratorio Espressivo-Ritmico','Scuole di ogni ordine e grado','Ciclo di 8-12 incontri settimanali di 1h. Esplorazione del ritmo corporeo, coordinazione, espressione creativa.','\u20AC 800-1.200');
+  y=sc(y,'Progetto Annuale Curricolare','Scuole primarie e secondarie','Programma integrato nel curriculum. 30 incontri annuali con valutazione iniziale, intermedia e finale.','\u20AC 3.500-5.000');
+  y=sc(y,'Giornata di Sensibilizzazione','Istituti comprensivi','Evento di una giornata con laboratori dimostrativi, presentazione ai docenti e materiale informativo.','\u20AC 350-500');
+  y+=5;lt('ASSOCIAZIONI',M,y,12,BLUE,'bold');r(M,y+2,40,0.8,GOLD);y+=10;
+  y=sc(y,'Workshop Introduttivo','Associazioni culturali e sportive','Incontro di 3-4 ore. Introduzione alla psicoritmica: principi teorici, esperienze pratiche.','\u20AC 400-600');
+  y=sc(y,'Ciclo di Incontri Esperienziali','Associazioni e cooperative sociali','Percorso di 6-10 incontri di 1.5h ciascuno. Pratica ritmica per il benessere di gruppo.','\u20AC 600-1.000');
+
+  // PAGE 4: DIVULGATIVA INSEGNANTI+FAMIGLIE
+  doc.addPage();y=ph('RITMICA DIVULGATIVA E DIDATTICA','Insegnanti e Famiglie');
+  lt('INSEGNANTI',M,y,12,BLUE,'bold');r(M,y+2,35,0.8,GOLD);y+=10;
+  y=sc(y,'Modulo 1 - Fondamenti','Docenti e operatori educativi','Corso di 12 ore. Basi teoriche, osservazione ritmica in classe, strumenti di base.','\u20AC 180');
+  y=sc(y,'Modulo 2 - Ritmica e Apprendimento','Docenti curricolari e di sostegno','Corso di 16 ore. Ritmo e funzioni cognitive, strategie per DSA e BES.','\u20AC 240');
+  y=sc(y,'Modulo 3 - Pratica Avanzata','Docenti con formazione base','Corso di 20 ore. Conduzione autonoma di laboratori, supervisione.','\u20AC 320');
+  y=sc(y,'Pacchetto Completo (Mod. 1+2+3)','Docenti e operatori','Percorso formativo integrale di 48 ore. Certificato e materiali didattici.','\u20AC 650');
+  y+=5;lt('FAMIGLIE',M,y,12,BLUE,'bold');r(M,y+2,30,0.8,GOLD);y+=10;
+  y=sc(y,'Laboratorio Famiglia','Nuclei familiari con bambini 3-12 anni','Ciclo di 8 incontri di 1h. Attivita ritmiche genitore-figlio, comunicazione non verbale.','\u20AC 320');
+  y=sc(y,'Evento Ritmico Aperto','Famiglie e comunita','Evento singolo di 2 ore. Esperienza collettiva, giochi ritmici, percussioni dal mondo.','\u20AC 30/pers.');
+
+  // PAGE 5: DIAGNOSTICA
+  doc.addPage();y=ph('RITMICA DIAGNOSTICA','Screening, valutazioni e profili ritmici');
+  lt('SCUOLE',M,y,12,BLUE,'bold');r(M,y+2,25,0.8,GOLD);y+=10;
+  y=sc(y,'Screening GOP-S','Classi scolastiche (max 25 alunni)','Osservazione strutturata su competenze ritmiche, coordinazione, attenzione e regolazione. Report di classe.','\u20AC 450/classe');
+  y=sc(y,'Assessment Ritmico BES','Alunni con Bisogni Educativi Speciali','Valutazione individuale approfondita di 2 sedute. Profilo ritmico, indicazioni per PDP/PEI.','\u20AC 280/alunno');
+  y+=5;lt('SINGOLI',M,y,12,BLUE,'bold');r(M,y+2,25,0.8,GOLD);y+=10;
+  y=sc(y,'Valutazione Psicoritmica','Bambini, adolescenti e adulti','Sessione di 60 min. Analisi del profilo ritmico: coordinazione, timing, espressivita, autoregolazione.','\u20AC 200');
+  y=sc(y,'Profilo Ritmico Completo','Bambini e adolescenti (6-17 anni)','3 sedute di valutazione + 1 colloquio restituzione. Batteria completa di test ritmici, relazione scritta.','\u20AC 350');
+  y+=5;lt('FAMIGLIE',M,y,12,BLUE,'bold');r(M,y+2,30,0.8,GOLD);y+=10;
+  y=sc(y,'Osservazione Dinamica Familiare','Nuclei familiari','Seduta di 75 min. Osservazione delle dinamiche ritmiche familiari: sintonizzazione, co-regolazione.','\u20AC 250');
+
+  // PAGE 6: CLINICA SINGOLI
+  doc.addPage();y=ph('RITMICA CLINICA E TERAPEUTICA','Percorsi individuali e di gruppo');
+  lt('SINGOLI',M,y,12,BLUE,'bold');r(M,y+2,25,0.8,GOLD);y+=10;
+  y=sc(y,'Consulenza Individuale','Bambini, adolescenti e adulti','Sedute settimanali di 50 min. Percorso personalizzato. Prima seduta a tariffa ridotta.','\u20AC 60/sed.');
+  y=sc(y,'Terapia di Gruppo','Gruppi omogenei (4-8 partecipanti)','Sedute settimanali di 75 min. Percorsi tematici: regolazione emotiva, competenze sociali.','\u20AC 40/sed.');
+  y=sc(y,'Ciclo Terapeutico Gruppo (10 sed.)','Gruppi omogenei','Pacchetto completo con valutazione iniziale e finale. Percorso strutturato.','\u20AC 430');
+  y=sc(y,'Percorso ADHD e Disregolazione','Bambini e adolescenti con ADHD','Protocollo specifico di 12-16 sedute. Tecniche ritmiche per attenzione e pianificazione motoria.','\u20AC 55/sed.');
+  y=sc(y,'Percorso Regolazione Emotiva','Bambini e adolescenti (6-17 anni)','Ciclo di 10-12 sedute individuali. Riconoscimento e gestione delle emozioni attraverso il ritmo.','\u20AC 60/sed.');
+  y=sc(y,'RAP Terapeutico','Adolescenti e adulti','Percorso di 10 sedute: percussione, espressione artistica e narrazione.','\u20AC 360/ciclo');
+
+  // PAGE 7: CLINICA SCUOLE+FAMIGLIE+ASSOCIAZIONI
+  doc.addPage();y=ph('RITMICA CLINICA E TERAPEUTICA','Scuole, Famiglie e Associazioni');
+  lt('SCUOLE',M,y,12,BLUE,'bold');r(M,y+2,25,0.8,GOLD);y+=10;
+  y=sc(y,'Sportello Psicoritmico Scolastico','Istituti scolastici','Presenza settimanale: consulenze individuali, osservazioni in classe, colloqui con docenti e genitori.','\u20AC 200/giorno');
+  y=sc(y,'Gruppo Terapeutico Scolastico','Classi con bisogni specifici','Ciclo di 12 sedute di gruppo in orario scolastico. Coordinamento con equipe didattica.','\u20AC 1.200/ciclo');
+  y+=5;lt('FAMIGLIE',M,y,12,BLUE,'bold');r(M,y+2,30,0.8,GOLD);y+=10;
+  y=sc(y,'Supporto Co-Genitorialita','Coppie genitoriali','Sedute di 60 min per coppia. Sintonizzazione genitoriale attraverso attivita ritmiche condivise.','\u20AC 80/coppia');
+  y=sc(y,'Pacchetto Co-Genitorialita (6 sed.)','Coppie genitoriali','Percorso strutturato di 6 incontri con obiettivi progressivi.','\u20AC 430');
+  y=sc(y,'Mediazione Post-Separazione','Genitori separati e figli','Sedute individuali e congiunte per ristabilire la comunicazione attraverso il ritmo.','\u20AC 70-90/sed.');
+  y=sc(y,'Terapia Familiare Ritmica','Nucleo familiare (max 5)','Sedute di 75 min. Dinamiche familiari: comunicazione, ruoli, confini, appartenenza.','\u20AC 90/sed.');
+  y+=5;lt('ASSOCIAZIONI',M,y,12,BLUE,'bold');r(M,y+2,40,0.8,GOLD);y+=10;
+  y=sc(y,'Supervisione Operatori','Equipe di associazioni e cooperative','Incontri mensili di 2h. Supervisione ritmica per operatori con utenza fragile.','\u20AC 150/inc.');
+
+  // PAGE 8: CONTATTI
+  doc.addPage();
+  r(0,0,W,60,BLUE);r(0,60,W,3,GOLD);
+  ct('CONTATTI E INFORMAZIONI',25,20,WHITE,'bold');
+  ct('Per prenotazioni, preventivi e informazioni',40,11,GOLD,'normal');
+  y=80;r(M,y,CW,50,LGRAY);r(M,y,CW,3,GOLD);y+=15;
+  ct('Dott. Manfredi Culotta',y,16,BLUE,'bold');y+=10;
+  ct('Psicologo - Specialista in Psicoritmica',y,11,GRAY,'normal');y+=15;
+  ct('Centro Clinico di Palermo',y,11,DGRAY,'normal');y+=8;
+  ct('Email: dottmanfrediculotta@gmail.com',y,11,LBLUE,'normal');y+=8;
+  ct('Web: manfredpal.github.io/psicoritmica-blog',y,10,LBLUE,'normal');y+=20;
+  gl(y);y+=10;lt('NOTE IMPORTANTI',M,y,12,BLUE,'bold');y+=10;
+  doc.setFontSize(9);doc.setFont('helvetica','normal');
+  ['I prezzi sono orientativi e possono variare in base alle esigenze.',
+   'Preventivi personalizzati per scuole e associazioni.',
+   'Pacchetti multi-seduta con sconto incluso.',
+   'Prima consulenza individuale a tariffa agevolata.',
+   'Colloquio conoscitivo preliminare sempre gratuito.',
+   'Prenotazioni online su: manfredpal.github.io/psicoritmica-blog/booking.html'
+  ].forEach(function(n){r(M+2,y-3,3,3,GOLD);tc(DGRAY);var ls=doc.splitTextToSize(n,CW-12);doc.text(ls,M+8,y);y+=ls.length*4+5;});
+  y=H-20;r(0,y,W,20,BLUE);ct('\u00A9 2026 Psicoritmica - Dott. Manfredi Culotta - Tutti i diritti riservati',y+12,8,WHITE,'normal');
+
+  // PAGE NUMBERS
+  var tp=doc.internal.getNumberOfPages();
+  for(var i=2;i<=tp;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(150,150,150);doc.setFont('helvetica','normal');doc.text('Pag. '+(i-1)+'/'+(tp-1),W/2,H-8,{align:'center'});}
+
+  doc.save('Catalogo_Servizi_Psicoritmica_2026.pdf');
+  btn.innerHTML = '\u2B07 Scarica PDF';
+  btn.disabled = false;
+}
+</script>
+</body>
+</html>
